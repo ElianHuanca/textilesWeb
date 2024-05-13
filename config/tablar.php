@@ -149,49 +149,78 @@ return [
             'icon' => 'ti ti-home',
             'url' => 'home'
         ],
-
         [
-            'text' => 'Support 1',
+            'text' => 'Inventario',
             'url' => '#',
-            'icon' => 'ti ti-help',
+            'icon' => 'ti ti-box',            
             'active' => ['support1'],
             'submenu' => [
                 [
-                    'text' => 'Ticket',
+                    'text' => 'Gestionar Almacenes',
+                    'route' => 'almacenes.index',
+                    'icon' => 'ti ti-box',
+                ],
+                [
+                    'text' => 'Gestionar Telas',
                     'url' => 'support1',
-                    'icon' => 'ti ti-article',
-                ]
+                    'icon' => 'ti ti-box',
+                ],
+                [
+                    'text' => 'Gestionar Traspasos',
+                    'url' => 'support1',
+                    'icon' => 'ti ti-box',
+                ],
             ],
-        ],
-
+        ],        
         [
-            'text' => 'Support 2',
+            'text' => 'Compras',
             'url' => '#',
-            'icon' => 'ti ti-help',
+            'icon' => 'ti ti-truck',
             'active' => ['support2'],
             'submenu' => [
                 [
-                    'text' => 'Ticket',
+                    'text' => 'Gestionar Compras',
                     'url' => 'support2',
-                    'icon' => 'ti ti-article',
+                    'icon' => 'ti ti-truck',
                 ]
             ],
         ],
-
         [
-            'text' => 'Support 3',
+            'text' => 'Ventas',
             'url' => '#',
-            'icon' => 'ti ti-help',
+            'icon' => 'ti ti-shopping-cart',
             'active' => ['support3'],
             'submenu' => [
                 [
-                    'text' => 'Ticket',
+                    'text' => 'Gestionar Sucursales',
                     'url' => 'support3',
-                    'icon' => 'ti ti-article',
+                    'icon' => 'ti ti-shopping-cart',
+                ],
+                [
+                    'text' => 'Gestionar Ventas',
+                    'url' => 'support3',
+                    'icon' => 'ti ti-shopping-cart',
+                ],                
+            ],
+        ],
+        [
+            'text' => 'Reportes Y Estadisticas',
+            'url' => '#',
+            'icon' => 'ti ti-chart-bar',
+            'active' => ['support3'],
+            'submenu' => [
+                [
+                    'text' => 'Ventas',
+                    'url' => 'support3',
+                    'icon' => 'ti ti-chart-bar',
+                ],                            
+                [
+                    'text' => 'Compras',
+                    'url' => 'support3',
+                    'icon' => 'ti ti-chart-bar',
                 ]
             ],
         ],
-
     ],
 
     /*
