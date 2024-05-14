@@ -42,3 +42,4 @@ Route::post('/sucursales', [SucursalController::class, 'store'])->name('sucursal
 Route::get('/sucursales/{sucursal}/edit', [SucursalController::class, 'edit'])->name('sucursales.edit');//Bista para editar Sucursal
 Route::put('/sucursales/{sucursal}', [SucursalController::class, 'update'])->name('sucursales.update');//Esto es para actualizar
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Route::resource('almacenes', \App\Http\Controllers\AlmacenesController::class)->names('almacenes');
