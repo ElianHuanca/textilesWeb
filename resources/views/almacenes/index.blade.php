@@ -4,24 +4,7 @@
     <!-- Page header -->
     <div class="page-header d-print-none">
         <div class="container-xl">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <!-- Page pre-title -->
-                    <div class="page-pretitle">
-                        Gestion
-                    </div>
-                    <h2 class="page-title">
-                        Almacenes
-                    </h2>
-                </div>
-                <!-- Page title actions -->
-                <div class="col-12 col-md-auto ms-auto d-print-none">
-                    <div class="btn-list">
-                        {{-- <span class="d-none d-sm-inline">
-                <a href="#" class="btn btn-white">
-                  Nuevo 
-                </a>
-              </span> --}}
+            <div class="row g-2 align-items-center">                
                         <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
                             data-bs-target="#modal-report">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
@@ -58,7 +41,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Almacenes</h3>
+                            <h3 class="card-title">Listado De Almacenes</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table card-table table-vcenter text-nowrap datatable">
@@ -93,9 +76,17 @@
                                                     <span class="badge bg-danger me-1"></span> Deshabilitado
                                                 @endif
                                             </td>
-                                            <td>
-
-                                            </td>
+                                            <td>                                                
+                                                <a href="{{ route('sucursales.show', $sucursal) }}" title="Ver">
+                                                    <i class="ti ti-eye"></i> 
+                                                </a>                                                                                            
+                                                <a href="{{ route('sucursales.edit', $sucursal) }}" title="Editar">
+                                                    <i class="ti ti-edit"></i>
+                                                </a>                                                                                            
+                                                <a href="{{ route('sucursales.destroy', $sucursal->id) }}" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este elemento?');">
+                                                    <i class="ti ti-trash"></i>                                                     
+                                                </a>
+                                            </td>                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
