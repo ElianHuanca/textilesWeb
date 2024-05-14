@@ -151,6 +151,24 @@ return [
         ],
 
         [
+            'text' => 'Usuarios',
+            'icon' => 'ti ti-user',
+            'url' => 'users'
+        ],
+
+        [
+            'text' => 'Producto',
+            'icon' => 'ti ti-user',
+            'url' => 'telas'
+        ],
+            
+        [
+            'text' => 'Sucursales',
+            'icon' => 'ti ti-user',
+            'url' => 'sucursales'
+        ],
+        
+        [
             'text' => 'Support 1',
             'url' => '#',
             'icon' => 'ti ti-help',
