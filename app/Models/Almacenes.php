@@ -11,6 +11,8 @@ class Almacenes extends Model
 
     protected $fillable = ['nombre', 'estado'];
 
+    public $timestamps = false;
+    
     public function almacenesTelas()
     {
         return $this->hasMany(AlmacenesTelas::class, 'idalmacen');

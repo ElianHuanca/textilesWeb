@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class AlmacenesTelas extends Model
 {
     use HasFactory;
+
+    protected $table = 'almacenestelas';
+
     protected $fillable = ['idalmacen', 'idtela', 'stock'];
+
+    public $timestamps = false;
 
     public function tela()
     {

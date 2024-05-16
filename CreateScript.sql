@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS telas (
 	CONSTRAINT fk_proveedor FOREIGN KEY (idproveedor) REFERENCES proveedores(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
-CREATE TABLE IF NOT EXISTS sucursalesTelas (
+CREATE TABLE IF NOT EXISTS sucursalestelas (
     idsucursal INT,
     idtela INT,
     stock DOUBLE PRECISION DEFAULT 0,
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS sucursalesTelas (
     CONSTRAINT fk_tela FOREIGN KEY (idtela) REFERENCES telas(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
-CREATE TABLE IF NOT EXISTS almacenesTelas (
+CREATE TABLE IF NOT EXISTS almacenestelas (
     idalmacen INT,
     idtela INT,
     stock DOUBLE PRECISION DEFAULT 0,

@@ -1,12 +1,11 @@
 CREATE OR REPLACE FUNCTION insertar_en_sucursales_almacenes()
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO sucursalesTelas (idsucursal, idtela)
+    INSERT INTO sucursalestelas (idsucursal, idtela)
     SELECT id, NEW.id
-    FROM sucursales;
-    RETURN NEW;
+    FROM sucursales;    
    
-   INSERT INTO almacenesTelas (idalmacen, idtela)
+   INSERT INTO almacenestelas (idalmacen, idtela)
     SELECT id, NEW.id
     FROM almacenes;
     RETURN NEW;
@@ -22,7 +21,7 @@ EXECUTE FUNCTION insertar_en_sucursales_almacenes();
 CREATE OR REPLACE FUNCTION insertar_en_telas()
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO sucursalesTelas (idsucursal, idtela)
+    INSERT INTO sucursalestelas (idsucursal, idtela)
     SELECT NEW.id, id
     FROM telas;
     RETURN NEW;   
@@ -38,7 +37,7 @@ EXECUTE FUNCTION insertar_en_telas();
 CREATE OR REPLACE FUNCTION insertar_en_telas2()
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO almacenesTelas (idalmacen, idtela)
+    INSERT INTO almacenestelas (idalmacen, idtela)
     SELECT NEW.id, id
     FROM telas;
     RETURN NEW;   

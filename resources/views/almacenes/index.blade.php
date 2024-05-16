@@ -4,20 +4,31 @@
     <!-- Page header -->
     <div class="page-header d-print-none">
         <div class="container-xl">
-            <div class="row g-2 align-items-center">                
-                        <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
-                            data-bs-target="#modal-report">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <line x1="12" y1="5" x2="12" y2="19" />
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                            </svg>
-                            Crear Nuevo Almacen
-                        </a>
-                        <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <!-- Page pre-title -->
+                    <div class="page-pretitle">
+                        Overview
+                    </div>
+                    <h2 class="page-title">
+                        Almacenes
+                    </h2>
+                </div>
+                <!-- Page title actions -->
+                <div class="col-12 col-md-auto ms-auto d-print-none">
+                    <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
+                        data-bs-target="#modal-report">
+                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Crear Nuevo Almacen
+                    </a>
+                    {{-- <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
                             data-bs-target="#modal-report" aria-label="Create new report">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -27,12 +38,11 @@
                                 <line x1="12" y1="5" x2="12" y2="19" />
                                 <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
-                        </a>
-                    </div>
+                        </a> --}}
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 
     <!-- Page body -->
     <div class="page-body">
@@ -76,17 +86,21 @@
                                                     <span class="badge bg-danger me-1"></span> Deshabilitado
                                                 @endif
                                             </td>
-                                            <td>                                                
-                                                <a href="{{ route('sucursales.show', $sucursal) }}" title="Ver">
-                                                    <i class="ti ti-eye"></i> 
-                                                </a>                                                                                            
-                                                <a href="{{ route('sucursales.edit', $sucursal) }}" title="Editar">
-                                                    <i class="ti ti-edit"></i>
-                                                </a>                                                                                            
-                                                <a href="{{ route('sucursales.destroy', $sucursal->id) }}" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este elemento?');">
-                                                    <i class="ti ti-trash"></i>                                                     
+                                            <td>
+                                                <a href="{{ route('almacenes.show', $almacen->id) }}" title="Ver">
+                                                    <i class="ti ti-eye"></i>
                                                 </a>
-                                            </td>                                            
+                                                <a href="{{ route('almacenes.edit', $almacen) }}" title="Editar">
+                                                    <i class="ti ti-edit"></i>
+                                                </a>
+                                                <form action="{{ route('almacenes.destroy', $almacen->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este elemento?');" style="background:none; border:none; padding:0; margin:0; cursor:pointer;">
+                                                        <i class="ti ti-trash" style="color: #0054a6"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

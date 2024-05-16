@@ -20,8 +20,8 @@
                     <a href="{{ route('sucursales.create') }}" class="btn btn-primary">
                         <!-- Icono de agregar sucursal -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <line x1="12" y1="5" x2="12" y2="19" />
                             <line x1="5" y1="12" x2="19" y2="12" />
@@ -46,8 +46,8 @@
                                 <div class="text-muted">
                                     Show
                                     <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="5" size="3"
-                                            aria-label="Sucursales count">
+                                        <input type="text" class="form-control form-control-sm" value="5"
+                                            size="3" aria-label="Sucursales count">
                                     </div>
                                     entries
                                 </div>
@@ -79,8 +79,10 @@
                                             <td>{{ $sucursal->ubicacion }}</td>
                                             <td>{{ $sucursal->telefono }}</td>
                                             <td>
-                                                <a href="{{ route('sucursales.edit', $sucursal) }}" class="btn btn-sm btn-primary">Editar</a>
-                                                <form action="{{ route('sucursales.destroy', $sucursal) }}" method="POST" class="d-inline">
+                                                <a href="{{ route('sucursales.edit', $sucursal) }}"
+                                                    class="btn btn-sm btn-primary">Editar</a>
+                                                <form action="{{ route('sucursales.destroy', $sucursal) }}" method="POST"
+                                                    class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
@@ -92,7 +94,8 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Showing {{ $sucursales->firstItem() }} to {{ $sucursales->lastItem() }} of {{ $sucursales->total() }} entries</p>
+                            <p class="m-0 text-muted">Showing {{ $sucursales->firstItem() }} to
+                                {{ $sucursales->lastItem() }} of {{ $sucursales->total() }} entries</p>
                             <ul class="pagination m-0 ms-auto">
                                 @if ($sucursales->onFirstPage())
                                     <li class="page-item disabled">
@@ -100,16 +103,17 @@
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" href="{{ $sucursales->previousPageUrl() }}" tabindex="-1" aria-disabled="true">‹</a>
+                                        <a class="page-link" href="{{ $sucursales->previousPageUrl() }}" tabindex="-1"
+                                            aria-disabled="true">‹</a>
                                     </li>
                                 @endif
-                        
+
                                 @foreach ($sucursales->getUrlRange(1, $sucursales->lastPage()) as $page => $url)
                                     <li class="page-item {{ $page == $sucursales->currentPage() ? 'active' : '' }}">
                                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                                     </li>
                                 @endforeach
-                        
+
                                 @if ($sucursales->hasMorePages())
                                     <li class="page-item">
                                         <a class="page-link" href="{{ $sucursales->nextPageUrl() }}">›</a>

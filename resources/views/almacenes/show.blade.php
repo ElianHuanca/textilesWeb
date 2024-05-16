@@ -6,7 +6,7 @@
             <div class="row g-2 align-items-center">
                 <div class="col">
                     <h2 class="page-title">
-                        Editar Almacenes
+                        Vista Almacenes-Telas
                     </h2>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                             <a href="{{ route('almacenes.index') }}" class="btn btn-primary">Volver</a>
                         </div>
                         <div class="card-header">
-                            <h3 class="card-title">Stock De Productos</h3>
+                            <h3 class="card-title">Stock De Telas</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table card-table table-vcenter text-nowrap datatable">
@@ -70,24 +70,24 @@
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
-                                        </th>
-                                        <th>NombreAlmacen</th>
+                                        </th>                                        
                                         <th>NombreProducto</th>
                                         <th>Stock</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($almacenes as $almacen)
-                                        <tr>                                            
+                                    @foreach ($almacen->almacenesTelas as $almacenTela)
+                                        <tr>                     
+                                            <td>
+                                                <span class="text-muted">
+                                                {{ $almacenTela->tela->id }}</span>
+                                            </td>                       
                                             <td>
                                                 <span class="flag flag-country-us"></span>
-                                                {{ $almacen->nombre }}
+                                                {{ $almacenTela->tela->nombre }}
                                             </td>
                                             <td>
-                                                {{$almacen->almacenesTelas->tela->nombre}}
-                                            </td>
-                                            <td>
-                                               {{$almacen->almacenesTelas->stock}}
+                                               {{$almacenTela->stock}}
                                             </td>
                                             
                                         </tr>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Almacenes;
+use App\Models\Telas;
 use Illuminate\Http\Request;
 
 class AlmacenesController extends Controller
@@ -38,7 +39,8 @@ class AlmacenesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $almacen = Almacenes::with('almacenesTelas.tela')->find($id);        
+        return view('almacenes.show', compact('almacen'));
     }
 
     /**
@@ -62,6 +64,9 @@ class AlmacenesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $almacen = Almacenes::find($id);
+        $almacen->estado = false;
+        $almacen->save();
+        return redirect()->route('almacenes.index')->with('success', 'Sucursal eliminada exitosamente.');;
     }
 }
