@@ -57,14 +57,14 @@ INSERT INTO usuarios(name,email,password) VALUES
 INSERT INTO proveedores(nombre) values
 ('LIC');
 
-INSERT INTO sucursales(direccion,celular) VALUES 
-('Local D4-E4 Shopping Miami','76627246'),
-('Local F3-F4 Shopping Miami','73143557'),
-('B/Ramada C/Parabano #315','72170941');
+INSERT INTO sucursales(direccion,zona,celular) VALUES 
+('Local D4-E4 Shopping Miami','Feria Barrio Lindo','76627246'),
+('Local F3-F4 Shopping Miami','Feria Barrio Lindo','73143557'),
+('C/Parabano #315','Comercial Ramada','72170941');
 
 INSERT INTO almacenes(direccion,celular) VALUES
-('B/Lindo C/Cabo Quiroga #44','70992450'),
-('B/Cupesi C/Ambaibos #243','75076077');
+('C/Cabo Quiroga #44','Ex Feria Barrio Lindo','70992450'),
+('C/Ambaibos #243','Plan 3000 B/Cupesi','75076077');
 
 INSERT INTO telas(nombre,precxmen, precxmay, precxrollo,precxcompra,idproveedor) VALUES
 ('Razo Suizo Licra', 30, 25, 23, 20,1),
