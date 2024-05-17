@@ -16,10 +16,8 @@
                 </div>
                 <!-- Page title actions -->
                 <div class="col-12 col-md-auto ms-auto d-print-none">
-                    <div class="btn-list">
-                        <!-- Botón para registrar una nueva tela -->
-                        <a href="{{ route('telas.create') }}" class="btn btn-primary">
-                            <!-- Icono de agregar tela -->
+                    <div class="btn-list">                        
+                        <a href="{{ route('telas.create') }}" class="btn btn-primary">                            
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -43,7 +41,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Lista de telas</h3>
                         </div>
-                        <div class="card-body border-bottom py-3">
+                        {{-- <div class="card-body border-bottom py-3">
                             <div class="d-flex">
                                 <div class="text-muted">
                                     Show
@@ -61,14 +59,14 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="table-responsive">
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
                                         <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
                                                 aria-label="Select all telas"></th>
-                                        <th class="w-1">No.
+                                        <th class="w-1">#
                                             <!-- Icono de orden -->
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm text-dark icon-thick"
                                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -79,27 +77,27 @@
                                             </svg>
                                         </th>
                                         <th>Nombre</th>
-                                        <th>Precio de Compra</th>
-                                        <th>Precio Mayor</th>
-                                        <th>Precio Menor</th>
+                                        <th>Precio Menor</th>                                        
+                                        <th>Precio Mayor</th>                                        
                                         <th>Precio Rollo</th>
-                                        <th>Actions</th>
+                                        <th>Precio De Compra</th>
+                                        <th>Proveedor</th>
+                                        <th>Acciones</th>                                        
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <!-- Iterar sobre la lista de telas y mostrarlas en filas de la tabla -->
+                                <tbody>                                    
                                     @foreach($telas as $tela)
                                         <tr>
                                             <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                     aria-label="Select tela"></td>
                                             <td><span class="text-muted">{{ $loop->iteration }}</span></td>
-                                            <td>{{ $tela->nombre }}</td>
-                                            <td>{{ $tela->precioCompra }}</td>
-                                            <td>{{ $tela->precioMayor }}</td>
-                                            <td>{{ $tela->precioMenor }}</td>
-                                            <td>{{ $tela->precioRollo }}</td>
-                                            <td>
-                                                <!-- Enlaces o botones para acciones como editar o eliminar telas -->
+                                            <td>{{ $tela->nombre }}</td>                                            
+                                            <td>{{ $tela->precioxmen }}</td>
+                                            <td>{{ $tela->precioxmay }}</td>                                            
+                                            <td>{{ $tela->precioxrollo }}</td>
+                                            <td>{{ $tela->precioxcompra }}</td>
+                                            <td>{{ $tela->proveedor->nombre }}</td>
+                                            <td>                                                
                                                 <a href="{{ route('telas.edit', $tela->id) }}"
                                                     class="btn btn-sm btn-primary">Edit</a>
                                                     <form action="{{ route('telas.destroy', $tela->id) }}" method="POST" class="d-inline">

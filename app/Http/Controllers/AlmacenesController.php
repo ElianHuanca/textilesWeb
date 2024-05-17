@@ -14,7 +14,7 @@ class AlmacenesController extends Controller
      */
     public function index()
     {
-        $almacenes = Almacenes::all();
+        $almacenes = Almacenes::all()->orderby('id', 'desc')->orderby('estado', 'desc');
         return view('almacenes.index', compact('almacenes'));
     }
 
@@ -22,8 +22,8 @@ class AlmacenesController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
+    {        
+        return view('almacenes.create');
     }
 
     /**
@@ -31,7 +31,12 @@ class AlmacenesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $almacen = new Almacenes();
+        $almacen->direccion = $request->direccion;
+        $almacen->zona = $request->zona;
+        $almacen->celular = $request->celular;        
+        $almacen->save();
+        return redirect()->route('almacenes.index')->with('success', 'Almacen creada exitosamente.');
     }
 
     /**
@@ -48,7 +53,8 @@ class AlmacenesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $almacen = Almacenes::find($id);
+        return view('almacenes.edit', compact('almacen'));
     }
 
     /**
@@ -56,7 +62,12 @@ class AlmacenesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $almacen = Almacenes::find($id);
+        $almacen->direccion = $request->direccion;
+        $almacen->zona = $request->zona;
+        $almacen->celular = $request->celular;        
+        $almacen->save();
+        return redirect()->route('almacenes.index')->with('success', 'Almacen actualizada exitosamente.');
     }
 
     /**
@@ -67,6 +78,6 @@ class AlmacenesController extends Controller
         $almacen = Almacenes::find($id);
         $almacen->estado = false;
         $almacen->save();
-        return redirect()->route('almacenes.index')->with('success', 'Sucursal eliminada exitosamente.');;
+        return redirect()->route('almacenes.index')->with('success', 'Almacen eliminada exitosamente.');;
     }
 }

@@ -15,20 +15,27 @@ CREATE TABLE IF NOT EXISTS proveedores(
 
 CREATE TABLE IF NOT EXISTS sucursales(
 	id SERIAL PRIMARY KEY,
-	nombre VARCHAR(100),
+	direccion VARCHAR(100),
+	zona VARCHAR(100),
+	celular VARCHAR(8),
 	estado boolean default true
 );
 
 CREATE TABLE IF NOT EXISTS almacenes(
 	id SERIAL PRIMARY KEY,
-	nombre VARCHAR(100),	
+	direccion VARCHAR(100),
+	zona VARCHAR(100),
+	celular VARCHAR(8),
 	estado boolean default true
 );
 
 CREATE TABLE IF NOT EXISTS telas (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100),	    
-    precio  DOUBLE PRECISION default 0, --Precio Unitario De Compra
+    precioxcompra  DOUBLE PRECISION default 0, --Precio Unitario De Compra
+    precioxmay DOUBLE PRECISION default 0,
+    precioxmen DOUBLE PRECISION default 0,
+    precioxrollo DOUBLE PRECISION default 0,
 	idproveedor int,
 	estado boolean default true,
 	CONSTRAINT fk_proveedor FOREIGN KEY (idproveedor) REFERENCES proveedores(id) ON DELETE CASCADE ON UPDATE RESTRICT

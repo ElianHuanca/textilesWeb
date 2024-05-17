@@ -57,40 +57,40 @@ INSERT INTO usuarios(name,email,password) VALUES
 INSERT INTO proveedores(nombre) values
 ('LIC');
 
-INSERT INTO sucursales(nombre) VALUES 
-('Local D4-E4'),
-('Local F3-F4'),
-('Ramada Parabano');
+INSERT INTO sucursales(direccion,celular) VALUES 
+('Local D4-E4 Shopping Miami','76627246'),
+('Local F3-F4 Shopping Miami','73143557'),
+('B/Ramada C/Parabano #315','72170941');
 
-INSERT INTO almacenes(nombre) VALUES
-('Feria Barrio Lindo'),
-('Plan 3000');
+INSERT INTO almacenes(direccion,celular) VALUES
+('B/Lindo C/Cabo Quiroga #44','70992450'),
+('B/Cupesi C/Ambaibos #243','75076077');
 
-INSERT INTO telas(nombre,idproveedor) VALUES
-('Razo Suizo Licra',1),
-('Razo Suizo Rigido',1),
-('Lipiur 3D', 1),
-('Mostazilla', 1),
-('Lipiur', 1),
-('Razo Doble Ancho', 1),
-('Razo',1),
-('Tull Ramas',1),
-('Blonda 15',1),
-('Blonda 20',1),
-('Blonda 50',1),
-('Tull Ilusion',1),
-('Tull Licra',1),
-('Tull Frances',1),
-('Can Can',1),
-('Tull Maripozas LPZ',1),
-('Tull Americano',1),
-('lipiur AG',1),
-('Tull Perlado', 1),
-('Bonye',1),
-('Tull Brilloso',1),
-('Lipiur IH',1),
-('Lipiur Blonda',1),
-('gasa',1),
-('Tull Ramas Ramada',1);
+INSERT INTO telas(nombre,precxmen, precxmay, precxrollo,precxcompra,idproveedor) VALUES
+('Razo Suizo Licra', 30, 25, 23, 20,1),
+('Razo Suizo Rigido', 25, 20, 18, 15,1),
+('Lipiur 3D', 160, 130, 110, 100,1),
+('Mostazilla', 180, 150, 140, 110,1),
+('Lipiur', 130, 100, 85, 70,1),
+('Razo Doble Ancho', 20, 15, 14, 11,1),
+('Razo', 10, 8, 6, 5.5,1),
+('Tull Ramas',65,55,50, 40,1),
+('Blonda 15',15,12,10,8,1),
+('Blonda 20',20,15,12, 10,1),
+('Blonda 50',50,45,43, 35,1),
+('Tull Ilusion',10,8,6, 5.5,1),
+('Tull Licra',20,16,15,8,1),
+('Tull Frances',25,20,18,16,1),
+('Can Can',20,17,14,12,1),
+('Tull Maripozas LPZ',65,50,45,40,1),
+('Tull Americano', 20,17,15,11.5,1),
+('lipiur AG', 130,100,85,62,1),
+('Tull Perlado', 100,80,70,46,1),
+('Bonye', 10,8,6,5.5,1),
+('Tull Brilloso',23,18,15,12,1),
+('Lipiur IH',130,100,85,57,1),
+('Lipiur Blonda',60,50,45,40,1),
+('gasa',15,12,10,9,1),
+('Tull Ramas Ramada', 65,55,50,40,1);
  
  

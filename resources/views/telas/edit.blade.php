@@ -34,39 +34,54 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div>                                
                                 <div class="mb-3">
-                                    <label for="precioCompra" class="form-label">Precio de Compra</label>
-                                    <input id="precioCompra" type="text" class="form-control @error('precioCompra') is-invalid @enderror" name="precioCompra" value="{{ $tela->precioCompra }}" required>
-                                    @error('precioCompra')
+                                    <label for="precioxmen" class="form-label">Precio Menor</label>
+                                    <input id="precioxmen" type="text" class="form-control @error('precioxmen') is-invalid @enderror" name="precioxmen" value="{{ $tela->precioxmen }}" required>
+                                    @error('precioxmen')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>                                
+                                <div class="mb-3">
+                                    <label for="precioxmay" class="form-label">Precio Mayor</label>
+                                    <input id="precioxmay" type="text" class="form-control @error('precioxmay') is-invalid @enderror" name="precioxmay" value="{{ $tela->precioxmay }}" required>
+                                    @error('precioxmay')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="precioMayor" class="form-label">Precio Mayor</label>
-                                    <input id="precioMayor" type="text" class="form-control @error('precioMayor') is-invalid @enderror" name="precioMayor" value="{{ $tela->precioMayor }}" required>
-                                    @error('precioMayor')
+                                    <label for="precioxrollo" class="form-label">Precio Rollo</label>
+                                    <input id="precioxrollo" type="text" class="form-control @error('precioxrollo') is-invalid @enderror" name="precioxrollo" value="{{ $tela->precioxrollo }}" required>
+                                    @error('precioxrollo')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="precioMenor" class="form-label
-                                    ">Precio Menor</label>
-                                    <input id="precioMenor" type="text" class="form-control @error('precioMenor') is-invalid @enderror" name="precioMenor" value="{{ $tela->precioMenor }}" required>
-                                    @error('precioMenor')
+                                    <label for="precioxcompra" class="form-label">Precio de Compra</label>
+                                    <input id="precioxcompra" type="text" class="form-control @error('precioxcompra') is-invalid @enderror" name="precioxcompra" value="{{ $tela->precioxcompra }}" required>
+                                    @error('precioxcompra')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="precioRollo" class="form-label">Precio Rollo</label>
-                                    <input id="precioRollo" type="text" class="form-control @error('precioRollo') is-invalid @enderror" name="precioRollo" value="{{ $tela->precioRollo }}" required>
-                                    @error('precioRollo')
+                                    <label for="proveedor" class="form-label">Proveedores</label>
+                                    <select id="proveedor" class="form-control @error('proveedor') is-invalid @enderror" name="proveedor" required>
+                                        <option value="{{$tela->proveedor->id}}" selected>{{$tela->proveedor->nombre}}</option>
+                                        @foreach($proveedores as $proveedor)
+                                            <option value="{{ $proveedor->id }}"> {{-- {{ $tela->idproveedor == $proveedor->id ? 'selected' : '' }}> --}}
+                                                {{ $proveedor->nombre }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('proveedor')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

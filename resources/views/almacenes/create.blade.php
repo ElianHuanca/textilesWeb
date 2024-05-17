@@ -20,30 +20,30 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <form method="POST" action="{{ route('alamcenes.store') }}">
+                            <form method="POST" action="{{ route('almacenes.store') }}">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">Nombre</label>
-                                    <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" required autofocus>
-                                    @error('nombre')
+                                    <label for="direccion" class="form-label">Direccion</label>
+                                    <input id="direccion" type="text" class="form-control @error('direccion') is-invalid @enderror" name="direccion" value="{{ old('direccion') }}" required autofocus>
+                                    @error('direccion')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="ubicacion" class="form-label">Ubicación</label>
-                                    <input id="ubicacion" type="text" class="form-control @error('ubicacion') is-invalid @enderror" name="ubicacion" value="{{ old('ubicacion') }}" required>
-                                    @error('ubicacion')
+                                    <label for="zona" class="form-label">Zona</label>
+                                    <input id="zona" type="text" class="form-control @error('zona') is-invalid @enderror" name="zona" value="{{ old('zona') }}" required autofocus>
+                                    @error('zona')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>     
+                                </div>                                     
                                 <div class="mb-3">
-                                    <label for="telefono" class="form-label">Teléfono</label>
-                                    <input id="telefono" type="text" class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" required>
-                                    @error('telefono')
+                                    <label for="celular" class="form-label">Celular</label>
+                                    <input id="celular" type="text" class="form-control @error('celular') is-invalid @enderror" name="celular" value="{{ old('celular') }}" required>
+                                    @error('celular')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

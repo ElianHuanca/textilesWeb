@@ -9,7 +9,7 @@ class Telas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre', 'precio', 'idproveedor', 'estado'];
+    protected $fillable = ['nombre', 'precioxmen','precioxmay','precioxrollo','precioxcompra', 'idproveedor', 'estado'];
 
     public function proveedor()
     {

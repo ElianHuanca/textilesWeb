@@ -9,7 +9,7 @@ class Sucursales extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre', 'estado'];
+    protected $fillable = ['direccion','zona','celular', 'estado'];
 
     public function ventas()
     {

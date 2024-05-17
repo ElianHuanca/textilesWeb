@@ -6,7 +6,7 @@
             <div class="row g-2 align-items-center">
                 <div class="col">
                     <h2 class="page-title">
-                        Vista Almacenes-Telas
+                        Vista Almacen-Telas
                     </h2>
                 </div>
             </div>
@@ -20,37 +20,22 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input id="nombre" type="text"
-                                    class="form-control @error('nombre') is-invalid @enderror" name="nombre"
-                                    value="{{ $almacen->nombre }}" required autofocus>
-                                @error('nombre')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <label for="direccion" class="form-label">Direccion</label>
+                                <input id="direccion" type="text"
+                                    class="form-control @error('direccion') is-invalid @enderror" name="direccion"
+                                    value="{{ $almacen->direccion }}" readonly>                                
                             </div>
                             <div class="mb-3">
-                                <label for="ubicacion" class="form-label">Ubicación</label>
-                                <input id="ubicacion" type="text"
-                                    class="form-control @error('ubicacion') is-invalid @enderror" name="ubicacion"
-                                    value="{{ $almacen->ubicacion }}" required>
-                                @error('ubicacion')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <label for="zona" class="form-label">Zona</label>
+                                <input id="zona" type="text"
+                                    class="form-control @error('zona') is-invalid @enderror" name="zona"
+                                    value="{{ $almacen->zona }}" readonly>                            
                             </div>
                             <div class="mb-3">
-                                <label for="telefono" class="form-label">Teléfono</label>
-                                <input id="telefono" type="text"
-                                    class="form-control @error('telefono') is-invalid @enderror" name="telefono"
-                                    value="{{ $almacen->telefono }}" required>
-                                @error('telefono')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <label for="celular" class="form-label">Celular</label>
+                                <input id="celular" type="text"
+                                    class="form-control @error('celular') is-invalid @enderror" name="celular"
+                                    value="{{ $almacen->celular }}" readonly>                                
                             </div>
                             <!-- Puedes agregar más campos según sea necesario -->
                             <a href="{{ route('almacenes.index') }}" class="btn btn-primary">Volver</a>
@@ -88,8 +73,7 @@
                                             </td>
                                             <td>
                                                {{$almacenTela->stock}}
-                                            </td>
-                                            
+                                            </td>                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
