@@ -40,32 +40,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Lista de telas</h3>
-                        </div>
-                        {{-- <div class="card-body border-bottom py-3">
-                            <div class="d-flex">
-                                <div class="text-muted">
-                                    Show
-                                    <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="5" size="3"
-                                            aria-label="Telas count">
-                                    </div>
-                                    entries
-                                </div>
-                                <div class="ms-auto text-muted">
-                                    Search:
-                                    <div class="ms-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm"
-                                            aria-label="Search tela">
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                        </div>                        
                         <div class="table-responsive">
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-                                        <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select all telas"></th>
+                                        {{-- <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
+                                                aria-label="Select all telas"></th> --}}
                                         <th class="w-1">#
                                             <!-- Icono de orden -->
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm text-dark icon-thick"
@@ -88,23 +69,41 @@
                                 <tbody>                                    
                                     @foreach($telas as $tela)
                                         <tr>
-                                            <td><input class="form-check-input m-0 align-middle" type="checkbox"
+                                            {{-- <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                     aria-label="Select tela"></td>
-                                            <td><span class="text-muted">{{ $loop->iteration }}</span></td>
+                                            <td><span class="text-muted">{{ $loop->iteration }}</span></td> --}}
+                                            <td>{{ $tela->id }}</td>
                                             <td>{{ $tela->nombre }}</td>                                            
                                             <td>{{ $tela->precioxmen }}</td>
                                             <td>{{ $tela->precioxmay }}</td>                                            
                                             <td>{{ $tela->precioxrollo }}</td>
                                             <td>{{ $tela->precioxcompra }}</td>
                                             <td>{{ $tela->proveedor->nombre }}</td>
-                                            <td>                                                
-                                                <a href="{{ route('telas.edit', $tela->id) }}"
+                                            <td>         
+                                                <a href="{{ route('telas.show', $tela->id) }}" title="Ver">
+                                                    <i class="ti ti-eye"></i>
+                                                </a>
+                                                <a href="{{ route('telas.edit', $tela) }}" title="Editar">
+                                                    <i class="ti ti-edit"></i>
+                                                </a>
+                                                <form action="{{ route('telas.destroy', $tela->id) }}" method="POST"
+                                                    style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" title="Eliminar"
+                                                        onclick="return confirm('¿Estás seguro de eliminar este elemento?');"
+                                                        style="background:none; border:none; padding:0; margin:0; cursor:pointer;">
+                                                        <i class="ti ti-trash" style="color: #0054a6"></i>
+                                                    </button>
+                                                </form>                                       
+                                                {{-- <a href="{{ route('telas.edit', $tela->id) }}"
                                                     class="btn btn-sm btn-primary">Edit</a>
                                                     <form action="{{ route('telas.destroy', $tela->id) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                                    </form>
+                                                    </form> --}}
+                                                
                                             </td>
                                         </tr>
                                     @endforeach

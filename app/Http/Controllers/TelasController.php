@@ -14,7 +14,7 @@ class TelasController extends Controller
      */
     public function index()
     {
-        $telas = Telas::all()->orderby('id', 'desc')->orderby('estado', 'desc');
+        $telas = Telas::where('estado',true)->orderby('id', 'asc')->paginate(10);
         return view('telas.index', compact('telas'));
     }
 
@@ -32,14 +32,7 @@ class TelasController extends Controller
      */
     public function store(Request $request)
     {
-        $tela = new Telas();
-        $tela->nombre = $request->nombre;
-        $tela->precioxmen = $request->precioxmen;
-        $tela->precioxmay = $request->precioxmay;
-        $tela->precioxrollo = $request->precioxrollo;
-        $tela->precioxcompra = $request->precioxcompra;
-        $tela->idproveedor = $request->idproveedor;
-        $tela->save();
+        Telas::create($request->all());
         return redirect()->route('telas.index')->with('success', 'Tela creada exitosamente.');
     }
 
@@ -67,13 +60,7 @@ class TelasController extends Controller
     public function update(Request $request, string $id)
     {
         $tela = Telas::find($id);
-        $tela->nombre = $request->nombre;
-        $tela->precioxmen = $request->precioxmen;
-        $tela->precioxmay = $request->precioxmay;
-        $tela->precioxrollo = $request->precioxrollo;
-        $tela->precioxcompra = $request->precioxcompra;
-        $tela->idproveedor = $request->idproveedor;
-        $tela->save();
+        $tela->update($request->all());
         return redirect()->route('telas.index')->with('success', 'Tela actualizada exitosamente.');
     }
 

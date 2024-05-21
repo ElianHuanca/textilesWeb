@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="proveedor" class="form-label">Proveedores</label>
-                                    <select id="proveedor" class="form-control @error('proveedor') is-invalid @enderror" name="proveedor" required>
+                                    <select id="proveedor" class="form-control @error('proveedor') is-invalid @enderror" name="idproveedor" required>
                                         <option value="">Seleccione un proveedor</option>
                                         @foreach($proveedores as $proveedor)
                                             <option value="{{ $proveedor->id }}" {{ old('proveedor') == $proveedor->id ? 'selected' : '' }}>

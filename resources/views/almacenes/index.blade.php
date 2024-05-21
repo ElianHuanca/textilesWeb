@@ -16,8 +16,7 @@
                 </div>
                 <!-- Page title actions -->
                 <div class="col-12 col-md-auto ms-auto d-print-none">
-                    <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
-                        data-bs-target="#modal-report">
+                    <a href="{{ route('almacenes.create') }}" class="btn btn-primary d-none d-sm-inline-block">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
@@ -56,7 +55,7 @@
                                         </th>
                                         <th>Direccion</th>
                                         <th>Zona</th>
-                                        <th>Estado</th>
+                                        <th>Celular</th>                                        
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -72,13 +71,10 @@
                                                 <span class="flag flag-country-us"></span>
                                                 {{ $almacen->zona }}
                                             </td>
-                                            <td>
-                                                @if ($almacen->estado)
-                                                    <span class="badge bg-success me-1"></span> Habilitado
-                                                @else
-                                                    <span class="badge bg-danger me-1"></span> Deshabilitado
-                                                @endif
-                                            </td>
+                                            <th>
+                                                <span class="flag flag-country-us"></span>
+                                                {{ $almacen->celular }}
+                                            </th>                                            
                                             <td>
                                                 <a href="{{ route('almacenes.show', $almacen->id) }}" title="Ver">
                                                     <i class="ti ti-eye"></i>
@@ -101,6 +97,38 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">Mostrando {{ $almacenes->firstItem() }} de
+                                {{ $almacenes->lastItem() }} a {{ $almacenes->total() }} registros</p>
+                            <ul class="pagination m-0 ms-auto">
+                                @if ($almacenes->onFirstPage())
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">‹</a>
+                                    </li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $almacenes->previousPageUrl() }}" tabindex="-1"
+                                            aria-disabled="true">‹</a>
+                                    </li>
+                                @endif
+
+                                @foreach ($almacenes->getUrlRange(1, $almacenes->lastPage()) as $page => $url)
+                                    <li class="page-item {{ $page == $almacenes->currentPage() ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    </li>
+                                @endforeach
+
+                                @if ($almacenes->hasMorePages())
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $almacenes->nextPageUrl() }}">›</a>
+                                    </li>
+                                @else
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">›</a>
+                                    </li>
+                                @endif
+                            </ul>
                         </div>
                     </div>
                 </div>

@@ -55,18 +55,20 @@ INSERT INTO usuarios(name,email,password) VALUES
 ('Mary Choque','mary@gmail.com','$2a$10$pyLUOKvtKEgB2PUyvCT.VO0Sm/2Lf3Y9zroRBg2ET8L6t5ja1n0rS');
 
 INSERT INTO proveedores(nombre) values
-('LIC');
+('LIC'),
+('FENIX'),
+('ASATEX');
 
 INSERT INTO sucursales(direccion,zona,celular) VALUES 
 ('Local D4-E4 Shopping Miami','Feria Barrio Lindo','76627246'),
 ('Local F3-F4 Shopping Miami','Feria Barrio Lindo','73143557'),
 ('C/Parabano #315','Comercial Ramada','72170941');
 
-INSERT INTO almacenes(direccion,celular) VALUES
+INSERT INTO almacenes(direccion,zona,celular) VALUES
 ('C/Cabo Quiroga #44','Ex Feria Barrio Lindo','70992450'),
 ('C/Ambaibos #243','Plan 3000 B/Cupesi','75076077');
 
-INSERT INTO telas(nombre,precxmen, precxmay, precxrollo,precxcompra,idproveedor) VALUES
+INSERT INTO telas(nombre,precioxmen, precioxmay, precioxrollo,precioxcompra,idproveedor) VALUES
 ('Razo Suizo Licra', 30, 25, 23, 20,1),
 ('Razo Suizo Rigido', 25, 20, 18, 15,1),
 ('Lipiur 3D', 160, 130, 110, 100,1),

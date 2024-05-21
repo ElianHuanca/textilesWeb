@@ -41,7 +41,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Lista de sucursales</h3>
                         </div>
-                        <div class="card-body border-bottom py-3">
+                        {{-- <div class="card-body border-bottom py-3">
                             <div class="d-flex">
                                 <div class="text-muted">
                                     Show
@@ -59,15 +59,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="table-responsive">
                             <table class="table table-vcenter table-nowrap">
                                 <thead>
                                     <tr>
                                         <th class="text-muted">ID</th>
-                                        <th class="text-muted">Nombre</th>
-                                        <th class="text-muted">Dirección</th>
-                                        <th class="text-muted">Teléfono</th>
+                                        <th class="text-muted">Direccion</th>
+                                        <th class="text-muted">Zona</th>
+                                        <th class="text-muted">Celular</th>
                                         <th class="text-muted">Acciones</th>
                                     </tr>
                                 </thead>
@@ -75,18 +75,34 @@
                                     @foreach ($sucursales as $sucursal)
                                         <tr>
                                             <td>{{ $sucursal->id }}</td>
-                                            <td>{{ $sucursal->nombre }}</td>
-                                            <td>{{ $sucursal->ubicacion }}</td>
-                                            <td>{{ $sucursal->telefono }}</td>
+                                            <td>{{ $sucursal->direccion }}</td>
+                                            <td>{{ $sucursal->zona }}</td>
+                                            <td>{{ $sucursal->celular }}</td>
                                             <td>
-                                                <a href="{{ route('sucursales.edit', $sucursal) }}"
+                                                <a href="{{ route('sucursales.show', $sucursal->id) }}" title="Ver">
+                                                    <i class="ti ti-eye"></i>
+                                                </a>
+                                                <a href="{{ route('sucursales.edit', $sucursal) }}" title="Editar">
+                                                    <i class="ti ti-edit"></i>
+                                                </a>
+                                                <form action="{{ route('sucursales.destroy', $sucursal->id) }}" method="POST"
+                                                    style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" title="Eliminar"
+                                                        onclick="return confirm('¿Estás seguro de eliminar este elemento?');"
+                                                        style="background:none; border:none; padding:0; margin:0; cursor:pointer;">
+                                                        <i class="ti ti-trash" style="color: #0054a6"></i>
+                                                    </button>
+                                                </form>
+                                                {{-- <a href="{{ route('sucursales.edit', $sucursal) }}"
                                                     class="btn btn-sm btn-primary">Editar</a>
                                                 <form action="{{ route('sucursales.destroy', $sucursal) }}" method="POST"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -94,8 +110,8 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Showing {{ $sucursales->firstItem() }} to
-                                {{ $sucursales->lastItem() }} of {{ $sucursales->total() }} entries</p>
+                            <p class="m-0 text-muted">Mostrando {{ $sucursales->firstItem() }} de
+                                {{ $sucursales->lastItem() }} a {{ $sucursales->total() }} registros</p>
                             <ul class="pagination m-0 ms-auto">
                                 @if ($sucursales->onFirstPage())
                                     <li class="page-item disabled">

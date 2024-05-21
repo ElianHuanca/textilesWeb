@@ -14,7 +14,7 @@ class AlmacenesController extends Controller
      */
     public function index()
     {
-        $almacenes = Almacenes::all()->orderby('id', 'desc')->orderby('estado', 'desc');
+        $almacenes = Almacenes::where('estado', true)->orderBy('id', 'asc')->paginate(10);
         return view('almacenes.index', compact('almacenes'));
     }
 
@@ -30,12 +30,9 @@ class AlmacenesController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $almacen = new Almacenes();
-        $almacen->direccion = $request->direccion;
-        $almacen->zona = $request->zona;
-        $almacen->celular = $request->celular;        
-        $almacen->save();
+    {                
+
+        Almacenes::create($request->all());
         return redirect()->route('almacenes.index')->with('success', 'Almacen creada exitosamente.');
     }
 
@@ -44,7 +41,7 @@ class AlmacenesController extends Controller
      */
     public function show(string $id)
     {
-        $almacen = Almacenes::with('almacenesTelas.tela')->find($id);        
+        $almacen = Almacenes::with('almacenestelas.tela')->find($id);        
         return view('almacenes.show', compact('almacen'));
     }
 
@@ -52,7 +49,7 @@ class AlmacenesController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {
+    {        
         $almacen = Almacenes::find($id);
         return view('almacenes.edit', compact('almacen'));
     }
@@ -61,12 +58,9 @@ class AlmacenesController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
+    {        
         $almacen = Almacenes::find($id);
-        $almacen->direccion = $request->direccion;
-        $almacen->zona = $request->zona;
-        $almacen->celular = $request->celular;        
-        $almacen->save();
+        $almacen->update($request->all());
         return redirect()->route('almacenes.index')->with('success', 'Almacen actualizada exitosamente.');
     }
 

@@ -145,30 +145,24 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'text' => 'Home',
-            'icon' => 'ti ti-home',
+            'text' => 'Perfil',
+            'icon' => 'ti ti-user',
             'url' => 'home'
         ],
-        [
-            'text' => 'Usuarios',
-            'icon' => 'ti ti-user',
-            'url' => 'users'
-        ],
-
-        [
-            'text' => 'Producto',
-            'icon' => 'ti ti-user',
-            'url' => 'telas'
-        ],
-            
-        [
-            'text' => 'Sucursales',
-            'icon' => 'ti ti-user',
-            'url' => 'sucursales'
-        ],
-        
-        [
-            'text' => 'Support 1',
+        [            
+            'text' => 'Administracion',
+            'url' => '#',
+            'icon' => 'ti ti-clipboard',            
+            'active' => ['support1'],
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Usuarios',
+                    'route' => 'users.index',
+                    'icon' => 'ti ti-usercircle',
+                ],
+            ]
+        ],        
+        [            
             'text' => 'Inventario',
             'url' => '#',
             'icon' => 'ti ti-box',            
@@ -181,7 +175,7 @@ return [
                 ],
                 [
                     'text' => 'Gestionar Telas',
-                    'url' => 'support1',
+                    'url' => 'telas',
                     'icon' => 'ti ti-box',
                 ],
                 [
@@ -212,7 +206,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Gestionar Sucursales',
-                    'url' => 'support3',
+                    'url' => 'sucursales',
                     'icon' => 'ti ti-shopping-cart',
                 ],
                 [

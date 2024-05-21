@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SucursalesTelas extends Model
 {
     use HasFactory;
+    
+    protected $table = 'sucursalestelas';
+
     protected $fillable = ['idsucursal', 'idtela', 'stock'];
 
     public function tela()

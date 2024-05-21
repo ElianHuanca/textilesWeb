@@ -11,6 +11,8 @@ class Telas extends Model
 
     protected $fillable = ['nombre', 'precioxmen','precioxmay','precioxrollo','precioxcompra', 'idproveedor', 'estado'];
 
+    public $timestamps = false;
+    
     public function proveedor()
     {
         return $this->belongsTo(Proveedores::class, 'idproveedor');

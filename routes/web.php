@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\AlmacenesController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SucursalController;
-use App\Http\Controllers\TelaController;
+use App\Http\Controllers\SucursalesController;
+use App\Http\Controllers\TelasController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -14,11 +15,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-//--------------------------------------CASO DE USO USUARIOS
+/* //--------------------------------------CASO DE USO USUARIOS
 Route::get('/users', [UserController::class, 'index'])->name('users.index');//VISTA PRINCIPAL CU1 USUARIO
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');//VISTA PARA CREAR USUARIO
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');//VISTA PRINCIPAL Eliminar
@@ -40,6 +37,10 @@ Route::get('/sucursales/create', [SucursalController::class, 'create'])->name('s
 Route::delete('/sucursales/{sucursal}', [SucursalController::class, 'destroy'])->name('sucursales.destroy');//VISTA PRINCIPAL Eliminar
 Route::post('/sucursales', [SucursalController::class, 'store'])->name('sucursales.store'); //Esto es para guardar
 Route::get('/sucursales/{sucursal}/edit', [SucursalController::class, 'edit'])->name('sucursales.edit');//Bista para editar Sucursal
-Route::put('/sucursales/{sucursal}', [SucursalController::class, 'update'])->name('sucursales.update');//Esto es para actualizar
+Route::put('/sucursales/{sucursal}', [SucursalController::class, 'update'])->name('sucursales.update');//Esto es para actualizar */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Route::resource('almacenes', \App\Http\Controllers\AlmacenesController::class)->names('almacenes');
+Route::resource('users', UserController::class)->names('users');
+Route::resource('almacenes',AlmacenesController::class)->names('almacenes');
+Route::resource('sucursales',SucursalesController::class)->names('sucursales');
+Route::resource('telas', TelasController::class)->names('telas');
+
