@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\AlmacenesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\SucursalesController;
 use App\Http\Controllers\TelasController;
+use App\Http\Controllers\TipoGastosController;
 use App\Http\Controllers\UserController;
+use App\Models\Proveedores;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,4 +46,5 @@ Route::resource('users', UserController::class)->names('users');
 Route::resource('almacenes',AlmacenesController::class)->names('almacenes');
 Route::resource('sucursales',SucursalesController::class)->names('sucursales');
 Route::resource('telas', TelasController::class)->names('telas');
-
+Route::resource('proveedores', ProveedoresController::class)->names('proveedores');
+Route::resource('tipogastos', TipoGastosController::class)->names('tipogastos');

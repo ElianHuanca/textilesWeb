@@ -195,7 +195,17 @@ return [
                     'text' => 'Gestionar Compras',
                     'url' => 'support2',
                     'icon' => 'ti ti-truck',
-                ]
+                ],
+                [
+                    'text' => 'Gestionar Proveedores',
+                    'url' => 'support2',
+                    'icon' => 'ti ti-truck',
+                ],
+                [
+                    'text' => 'Gestionar Tipos Gastos',
+                    'url' => 'tipogastos',
+                    'icon' => 'ti ti-truck',
+                ],                
             ],
         ],
         [
