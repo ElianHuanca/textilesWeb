@@ -101,8 +101,22 @@ CREATE TABLE IF NOT EXISTS det_compras(
 	idtela INT,
 	cantidad DOUBLE PRECISION,
 	precio DOUBLE PRECISION,
-	precioAG DOUBLE precision,
+	total DOUBLE precision,
 	CONSTRAINT pk_compra_tela PRIMARY KEY (idcompra, idtela),
 	CONSTRAINT fk_compra FOREIGN KEY (idcompra) REFERENCES compras(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT fk_tela FOREIGN KEY (idtela) REFERENCES telas(id) ON DELETE CASCADE ON UPDATE RESTRICT
+);
+
+CREATE TABLE IF NOT exists tipogastos(
+	id SERIAL PRIMARY KEY,
+	descripcion varchar(100)	
+);
+
+CREATE TABLE IF NOT EXISTS adiciongastos(
+	idcompra INT,
+	idgasto INT,
+	costo DOUBLE PRECISION,
+	CONSTRAINT pk_compra_gasto PRIMARY KEY (idcompra, idgasto),
+	CONSTRAINT fk_compra FOREIGN KEY (idcompra) REFERENCES compras(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    CONSTRAINT fk_gasto FOREIGN KEY (idgasto) REFERENCES tipogastos(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
