@@ -13,7 +13,7 @@ class ProveedoresController extends Controller
      */
     public function index()
     {
-        $proveedores = Proveedores::where('estado', true)->orderby('id','asc')->pagination(10);
+        $proveedores = Proveedores::where('estado', true)->orderby('id','asc')->paginate(10);
         return view('proveedores.index', compact('proveedores'));
     }
 

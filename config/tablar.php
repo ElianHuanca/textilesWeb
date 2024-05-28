@@ -198,7 +198,7 @@ return [
                 ],
                 [
                     'text' => 'Gestionar Proveedores',
-                    'url' => 'support2',
+                    'url' => 'proveedores',
                     'icon' => 'ti ti-truck',
                 ],
                 [

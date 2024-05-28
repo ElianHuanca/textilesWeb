@@ -11,6 +11,8 @@ class Proveedores extends Model
 
     protected $fillable = ['nombre', 'estado'];
 
+    public $timestamps = false;
+    
     public function telas()
     {
         return $this->hasMany(Telas::class, 'idproveedor');

@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS telas (
 CREATE TABLE IF NOT EXISTS sucursalestelas (
     idsucursal INT,
     idtela INT,
-    stock DOUBLE PRECISION DEFAULT 0,
+    stock DOUBLE PRECISION DEFAULT 0,    
     CONSTRAINT pk_sucursal_tela PRIMARY KEY (idsucursal, idtela),
     CONSTRAINT fk_sucursal FOREIGN KEY (idsucursal) REFERENCES sucursales(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT fk_tela FOREIGN KEY (idtela) REFERENCES telas(id) ON DELETE CASCADE ON UPDATE RESTRICT
@@ -93,6 +93,7 @@ CREATE TABLE IF NOT EXISTS compras(
     total DOUBLE PRECISION,
     totalAG DOUBLE PRECISION,
     idalmacen int,
+    estado boolean default true,
     CONSTRAINT fk_almacen FOREIGN KEY (idalmacen) REFERENCES almacenes(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
@@ -102,6 +103,7 @@ CREATE TABLE IF NOT EXISTS det_compras(
 	cantidad DOUBLE PRECISION,
 	precio DOUBLE PRECISION,
 	total DOUBLE precision,
+	estado boolean default true,
 	CONSTRAINT pk_compra_tela PRIMARY KEY (idcompra, idtela),
 	CONSTRAINT fk_compra FOREIGN KEY (idcompra) REFERENCES compras(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT fk_tela FOREIGN KEY (idtela) REFERENCES telas(id) ON DELETE CASCADE ON UPDATE RESTRICT
@@ -109,13 +111,15 @@ CREATE TABLE IF NOT EXISTS det_compras(
 
 CREATE TABLE IF NOT exists tipogastos(
 	id SERIAL PRIMARY KEY,
-	descripcion varchar(100)	
+	descripcion varchar(100),
+	estado boolean default true
 );
 
 CREATE TABLE IF NOT EXISTS adiciongastos(
 	idcompra INT,
 	idgasto INT,
 	costo DOUBLE PRECISION,
+	estado boolean default true,
 	CONSTRAINT pk_compra_gasto PRIMARY KEY (idcompra, idgasto),
 	CONSTRAINT fk_compra FOREIGN KEY (idcompra) REFERENCES compras(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT fk_gasto FOREIGN KEY (idgasto) REFERENCES tipogastos(id) ON DELETE CASCADE ON UPDATE RESTRICT

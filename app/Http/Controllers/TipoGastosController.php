@@ -13,7 +13,7 @@ class TipoGastosController extends Controller
      */
     public function index()
     {
-        $tipogastos = TipoGastos::where('estado', true)->orderby('id','asc')->pagination(10);
+        $tipogastos = TipoGastos::where('estado', true)->orderby('id','asc')->paginate(10);
         return view('tipogastos.index', compact('tipogastos'));
     }
 
@@ -71,8 +71,7 @@ class TipoGastosController extends Controller
     public function destroy(string $id)
     {
         $tipogasto = TipoGastos::find($id);
-        $tipogasto->estado = false;
-        $tipogasto->save();
+        $tipogasto->update(['estado' => false]);
         return redirect()->route('tipogastos.index')
             ->with('success', 'Tipo de gasto eliminado correctamente.');
     }
