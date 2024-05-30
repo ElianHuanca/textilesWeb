@@ -193,7 +193,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Gestionar Compras',
-                    'url' => 'support2',
+                    'url' => 'compras',
                     'icon' => 'ti ti-truck',
                 ],
                 [
