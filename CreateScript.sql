@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS almacenestelas (
     stock DOUBLE PRECISION DEFAULT 0,
     CONSTRAINT pk_almacen_tela PRIMARY KEY (idalmacen, idtela),
     CONSTRAINT fk_almacen FOREIGN KEY (idalmacen) REFERENCES almacenes(id) ON DELETE CASCADE ON UPDATE RESTRICT,
-    CONSTRAINT fk_tela_almacen FOREIGN KEY (idtela) REFERENCES telas(id) ON DELETE CASCADE ON UPDATE RESTRICT
+    CONSTRAINT fk_tela FOREIGN KEY (idtela) REFERENCES telas(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 
@@ -102,6 +102,7 @@ CREATE TABLE IF NOT EXISTS det_compras(
 	idtela INT,
 	cantidad DOUBLE PRECISION,
 	precio DOUBLE PRECISION,
+	precioAG DOUBLE precision,
 	total DOUBLE precision,
 	estado boolean default true,
 	CONSTRAINT pk_compra_tela PRIMARY KEY (idcompra, idtela),
