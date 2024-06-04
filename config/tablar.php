@@ -221,7 +221,7 @@ return [
                 ],
                 [
                     'text' => 'Gestionar Ventas',
-                    'url' => 'support3',
+                    'url' => 'ventas',
                     'icon' => 'ti ti-shopping-cart',
                 ],                
             ],

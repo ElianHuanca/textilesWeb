@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sucursales;
+use App\Models\Telas;
+use App\Models\Ventas;
 use Illuminate\Http\Request;
 
-class VentaController extends Controller
+class VentasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $ventas = Ventas::where('estado',true)->paginate(10);
+        return view('ventas.index', compact('ventas'));
     }
 
     /**
@@ -20,7 +24,9 @@ class VentaController extends Controller
      */
     public function create()
     {
-        //
+        $telas = Telas::where('estado',true)->get();
+        $sucursales = Sucursales::where('estado',true)->get();
+        return view('ventas.create', compact('telas', 'sucursales'));
     }
 
     /**

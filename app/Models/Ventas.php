@@ -9,7 +9,7 @@ class Ventas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fecha', 'hora', 'total', 'ganancias', 'descuento', 'idsucursal', 'idusuario', 'estado'];
+    protected $fillable = ['fecha', 'total', 'ganancias', 'descuento', 'idsucursal', 'idusuario', 'estado'];
 
     public function sucursal()
     {
@@ -18,7 +18,7 @@ class Ventas extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(Usuarios::class, 'idusuario');
+        return $this->belongsTo(User::class, 'idusuario');
     }
 
     public function detVentas()

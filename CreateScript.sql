@@ -56,14 +56,14 @@ CREATE TABLE IF NOT EXISTS almacenestelas (
     stock DOUBLE PRECISION DEFAULT 0,
     CONSTRAINT pk_almacen_tela PRIMARY KEY (idalmacen, idtela),
     CONSTRAINT fk_almacen FOREIGN KEY (idalmacen) REFERENCES almacenes(id) ON DELETE CASCADE ON UPDATE RESTRICT,
-    CONSTRAINT fk_tela_almacen FOREIGN KEY (idtela) REFERENCES telas(id) ON DELETE CASCADE ON UPDATE RESTRICT
+    CONSTRAINT fk_tela FOREIGN KEY (idtela) REFERENCES telas(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 
 CREATE TABLE IF NOT EXISTS ventas (
     id SERIAL PRIMARY KEY,
     fecha DATE default NOW(),
-    hora TIME DEFAULT NOW(),
+    --hora TIME DEFAULT NOW(),
     total DOUBLE PRECISION default 0,
     ganancias DOUBLE PRECISION default 0,
     descuento  DOUBLE PRECISION default 0,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS ventas (
     idusuario INT,--Vendedor
 	estado boolean default true,
     CONSTRAINT fk_sucursal FOREIGN KEY (idsucursal) REFERENCES sucursales(id) ON DELETE CASCADE ON UPDATE RESTRICT,
-    CONSTRAINT fk_usuario FOREIGN KEY (idusuario) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE RESTRICT
+    CONSTRAINT fk_usuario FOREIGN KEY (idusuario) REFERENCES users(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS det_ventas (    
