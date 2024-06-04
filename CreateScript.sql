@@ -102,6 +102,7 @@ CREATE TABLE IF NOT EXISTS det_compras(
 	idtela INT,
 	cantidad DOUBLE PRECISION,
 	precio DOUBLE PRECISION,
+	precioAG DOUBLE precision,
 	total DOUBLE precision,
 	estado boolean default true,
 	CONSTRAINT pk_compra_tela PRIMARY KEY (idcompra, idtela),

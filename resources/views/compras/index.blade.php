@@ -54,7 +54,7 @@
                                         <th>Fecha</th>
                                         <th>Total</th>
                                         <th>TotalAG</th>
-                                        <th>compra</th>                                        
+                                        <th>Almacen</th>                                        
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>

@@ -95,7 +95,10 @@ INSERT INTO telas(nombre,precioxmen, precioxmay, precioxrollo,precioxcompra,idpr
 ('gasa',15,12,10,9,1),
 ('Tull Ramas Ramada', 65,55,50,40,1);
  
- insert into tipogastos (descripcion)values
+ INSERT INTO tipogastos(descripcion) VALUES
  ('Transporte Terrestre'),
  ('Transporte Aereo'),
+ ('Transporte Maritimo'),
+ ('Nacionalizacion'),
  ('Poliza');
+ 
