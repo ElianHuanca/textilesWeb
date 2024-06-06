@@ -7,6 +7,7 @@ use App\Models\Sucursales;
 use App\Models\Telas;
 use App\Models\Ventas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VentasController extends Controller
 {
@@ -34,7 +35,11 @@ class VentasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $venta = new Ventas();
+        $venta->fecha = $request->fecha;
+        $venta->idusuario= Auth::user()->id;
+        
+
     }
 
     /**

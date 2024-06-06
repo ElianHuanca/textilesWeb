@@ -36,11 +36,10 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="descuento" class="form-label">descuento</label>
-                                        {{-- <input id="descuento" type="text" class="form-control @error('descuento') is-invalid @enderror" name="descuento" value="{{ old('descuento') }}" required autofocus> --}}
                                         <div class="input-group">
                                             <input id="descuento" type="text"
                                                 class="form-control @error('descuento') is-invalid @enderror"
-                                                name="descuento" value="{{ old('descuento') }}" required autofocus>
+                                                name="descuento" value="" autofocus>
                                             <div class="input-group-append">
                                                 <span class="input-group-text">Bs</span>
                                             </div>
@@ -52,29 +51,43 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="sucursal" class="form-label">sucursales</label>
-                                    <select id="sucursal" class="form-control @error('sucursal') is-invalid @enderror"
-                                        name="idsucursal" required>
-                                        <option value="">Seleccione una sucursal</option>
-                                        @foreach ($sucursales as $sucursal)
-                                            <option value="{{ $sucursal->id }}"
-                                                {{ old('sucursal') == $sucursal->id ? 'selected' : '' }}>
-                                                {{ $sucursal->direccion }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="sucursal" class="form-label">sucursales</label>
+                                        <select id="sucursal" class="form-control @error('sucursal') is-invalid @enderror"
+                                            name="idsucursal" required>
+                                            <option value="">Seleccione una sucursal</option>
+                                            @foreach ($sucursales as $sucursal)
+                                                <option value="{{ $sucursal->id }}"
+                                                    {{ old('sucursal') == $sucursal->id ? 'selected' : '' }}>
+                                                    {{ $sucursal->direccion }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="total" class="form-label">total</label>
+                                        <div class="input-group">
+                                            <input id="total" type="text"
+                                                class="form-control @error('total') is-invalid @enderror" name="total"
+                                                value="0" readonly>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Bs</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <br>
+                                <h2 style="text-align: center; padding-top: 20px">Detalles de la venta</h2>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="tela" class="form-label">Tela</label>
                                         <select id="tela" class="form-control @error('tela') is-invalid @enderror"
-                                            name="idtela" required>
+                                            name="idtela">
                                             <option value="">Seleccione una tela</option>
                                             @foreach ($telas as $tela)
                                                 <option value="{{ $tela->id }}" data-precio="{{ $tela->precioxcompra }}"
-                                                    data-nombre="{{ $tela->nombre }}"
+                                                    data-nombre="{{ $tela->nombre }}" data-id="{{ $tela->id }}"
                                                     {{ old('tela') == $tela->id ? 'selected' : '' }}>
                                                     {{ $tela->nombre }}
                                                 </option>
@@ -98,7 +111,7 @@
                                         <label for="precio" class="form-label">Precio Venta</label>
                                         <input id="precio" type="text"
                                             class="form-control @error('precio') is-invalid @enderror" name="precio"
-                                            value="{{ old('precio') }}" required autofocus>
+                                            value="{{ old('precio') }}" autofocus>
                                         @error('precio')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -109,7 +122,7 @@
                                         <label for="cantidad" class="form-label">Cantidad</label>
                                         <input id="cantidad" type="text"
                                             class="form-control @error('cantidad') is-invalid @enderror" name="cantidad"
-                                            value="{{ old('cantidad') }}" required autofocus>
+                                            value="{{ old('cantidad') }}" autofocus>
                                         @error('cantidad')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -119,6 +132,9 @@
                                 </div>
                                 <button type="button" class="btn btn-primary" id="agregar-tela">Agregar</button>
                                 <br>
+
+                                <input type="hidden" id="telas" name="telas">
+
                                 <table class="table mt-3">
                                     <thead>
                                         <tr>
@@ -131,6 +147,7 @@
                                     <tbody id="tabla-telas">
                                     </tbody>
                                 </table>
+                                <button type="submit" class="btn btn-primary">Registrar Venta</button>
                             </form>
                         </div>
                     </div>
@@ -138,21 +155,6 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const telaSelect = document.getElementById('tela');
-            const precioInput = document.getElementById('precioxcompra');
-
-            telaSelect.addEventListener('change', function() {
-                const selectedOption = telaSelect.options[telaSelect.selectedIndex];
-                const precio = selectedOption.getAttribute('data-precio');
-                precioInput.value = precio ? precio : '0';
-            });
-
-            // Trigger change event on load to populate initial value if a tela is already selected
-            telaSelect.dispatchEvent(new Event('change'));
-        });
-    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -162,49 +164,116 @@
             const cantidadInput = document.getElementById('cantidad');
             const agregarButton = document.getElementById('agregar-tela');
             const tablaTelas = document.getElementById('tabla-telas');
-
+            const telasInput = document.getElementById('telas');
+            const form = document.querySelector('form');
+            const totalInput = document.getElementById('total');
+            const almacenSelect = document.getElementById('almacen');
+            
             telaSelect.addEventListener('change', function() {
                 const selectedOption = telaSelect.options[telaSelect.selectedIndex];
                 const precio = selectedOption.getAttribute('data-precio');
-                precioInput.value = precio ? precio : '';
+                precioInput.value = precio ? precio : '0';
+                totalInput.value = 0;
+                tablaTelas.
             });
 
             agregarButton.addEventListener('click', function() {
                 const selectedOption = telaSelect.options[telaSelect.selectedIndex];
+                const idTela = selectedOption.getAttribute('data-id');
                 const nombreTela = selectedOption.getAttribute('data-nombre');
                 const precioVenta = precioVentaInput.value;
-                const cantidad = cantidadInput.value;
-
+                const cantidad = cantidadInput.value;                
                 if (nombreTela && precioVenta && cantidad) {
+                    if (existeTela(idTela)) {
+                        alert('La tela ya ha sido agregada.');
+                        return;
+                    }
                     const nuevaFila = document.createElement('tr');
 
-                    nuevaFila.innerHTML = `
+                    nuevaFila.innerHTML = `                    
+                    <td hidden>${idTela}</td>
                     <td>${nombreTela}</td>
                     <td>${precioVenta}</td>
                     <td>${cantidad}</td>
                     <td>
                         <button type="button" class="btn btn-danger btn-sm borrar-fila">Eliminar</button>
                     </td>
-                `;
+                    `;
 
                     tablaTelas.appendChild(nuevaFila);
 
                     nuevaFila.querySelector('.borrar-fila').addEventListener('click', function() {
                         nuevaFila.remove();
+                        actualizarCampoTelas();
                     });
 
                     telaSelect.value = '';
                     precioInput.value = '';
                     precioVentaInput.value = '';
                     cantidadInput.value = '';
+
+                    actualizarCampoTelas();
                 } else {
                     alert('Por favor complete todos los campos.');
                 }
             });
 
             telaSelect.dispatchEvent(new Event('change'));
+
+            form.addEventListener('submit', function() {
+                actualizarCampoTelas();
+            });
+
+            function existeTela(idTela) {
+                const filas = tablaTelas.querySelectorAll('tr');
+                for (const fila of filas) {
+                    const celdas = fila.querySelectorAll('td');
+                    const idTelaExistente = celdas[0].textContent;
+                    if (idTelaExistente == idTela) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            function actualizarCampoTelas() {
+                const filas = tablaTelas.querySelectorAll('tr');
+                const telas = [];
+                totalInput.value = 0;
+                filas.forEach((fila) => {
+                    const celdas = fila.querySelectorAll('td');
+                    const idTela = celdas[0].textContent;
+                    const nombreTela = celdas[1].textContent;
+                    const precioVenta = celdas[2].textContent;
+                    const cantidad = celdas[3].textContent;
+                    totalInput.value = parseFloat(totalInput.value) + parseFloat(precioVenta) * parseFloat(
+                        cantidad);
+
+                    telas.push({
+                        idTela,
+                        nombreTela,
+                        precioVenta,
+                        cantidad
+                    });
+                });
+
+                telasInput.value = JSON.stringify(telas);
+            }
+
+            /*INPUT FECHA*/
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0!
+            const dd = String(today.getDate()).padStart(2, '0');
+
+            // Formatea la fecha en el formato YYYY-MM-DD
+            const formattedToday = `${yyyy}-${mm}-${dd}`;
+
+            // Establece la fecha actual como valor por defecto
+            const fechaInput = document.getElementById('fecha');
+            if (!fechaInput.value) {
+                fechaInput.value = formattedToday;
+            }
         });
     </script>
 @endsection
-
-{{-- <button type="submit" class="btn btn-primary">Guardar</button> --}}
