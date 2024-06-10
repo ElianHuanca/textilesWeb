@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS telas (
     precioxmay DOUBLE PRECISION default 0,
     precioxmen DOUBLE PRECISION default 0,
     precioxrollo DOUBLE PRECISION default 0,
+    rop int default 0,
+    stockseguridad int default 0,
 	idproveedor int,
 	estado boolean default true,
 	CONSTRAINT fk_proveedor FOREIGN KEY (idproveedor) REFERENCES proveedores(id) ON DELETE CASCADE ON UPDATE RESTRICT

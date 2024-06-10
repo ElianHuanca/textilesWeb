@@ -78,6 +78,8 @@
                                             <td>{{ $tela->precioxmay }}</td>                                            
                                             <td>{{ $tela->precioxrollo }}</td>
                                             <td>{{ $tela->precioxcompra }}</td>
+                                            <td>{{ $tela->rop }}</td>
+                                            <td>{{ $tela->stockseguridad }}</td>
                                             <td>{{ $tela->proveedor->nombre }}</td>
                                             <td>         
                                                 <a href="{{ route('telas.show', $tela->id) }}" title="Ver">

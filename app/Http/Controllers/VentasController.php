@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sucursales;
-use App\Models\Telas;
 use App\Models\Ventas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class VentasController extends Controller
 {
@@ -16,7 +16,7 @@ class VentasController extends Controller
      */
     public function index()
     {
-        $ventas = Ventas::where('estado',true)->paginate(10);
+        $ventas = Ventas::where('estado', true)->paginate(10);
         return view('ventas.index', compact('ventas'));
     }
 
@@ -25,9 +25,28 @@ class VentasController extends Controller
      */
     public function create()
     {
-        $telas = Telas::where('estado',true)->get();
-        $sucursales = Sucursales::where('estado',true)->get();
-        return view('ventas.create', compact('telas', 'sucursales'));
+        $telas = DB::table('sucursalestelas as st')
+            ->join('sucursales as s', function ($join) {
+                $join->on('s.id', '=', 'st.idsucursal')
+                    ->where('s.estado', true);
+            })
+            ->join('telas as t', function ($join) {
+                $join->on('t.id', '=', 'st.idtela')
+                    ->where('t.estado', true);
+            })
+            ->select('st.*', 't.*')
+            ->get();
+
+        $telasPorSucursal = [];
+        foreach ($telas as $tela) {
+            $telasPorSucursal[$tela->idsucursal][] = $tela;
+        }
+
+        // Convertir a JSON para usar en JavaScript
+        $telasPorSucursalJson = json_encode($telasPorSucursal);
+
+        $sucursales = Sucursales::where('estado', true)->get();
+        return view('ventas.create', compact('sucursales', 'telasPorSucursalJson'));
     }
 
     /**
@@ -37,9 +56,7 @@ class VentasController extends Controller
     {
         $venta = new Ventas();
         $venta->fecha = $request->fecha;
-        $venta->idusuario= Auth::user()->id;
-        
-
+        $venta->idusuario = Auth::user()->id;
     }
 
     /**

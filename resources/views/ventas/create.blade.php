@@ -84,14 +84,14 @@
                                         <label for="tela" class="form-label">Tela</label>
                                         <select id="tela" class="form-control @error('tela') is-invalid @enderror"
                                             name="idtela">
-                                            <option value="">Seleccione una tela</option>
+                                            {{-- <option value="">Seleccione una tela</option>
                                             @foreach ($telas as $tela)
                                                 <option value="{{ $tela->id }}" data-precio="{{ $tela->precioxcompra }}"
                                                     data-nombre="{{ $tela->nombre }}" data-id="{{ $tela->id }}"
                                                     {{ old('tela') == $tela->id ? 'selected' : '' }}>
                                                     {{ $tela->nombre }}
                                                 </option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -177,6 +177,8 @@
                 tablaTelas.
             });
 
+            telaSelect.dispatchEvent(new Event('change'));
+
             agregarButton.addEventListener('click', function() {
                 const selectedOption = telaSelect.options[telaSelect.selectedIndex];
                 const idTela = selectedOption.getAttribute('data-id');
@@ -216,9 +218,7 @@
                 } else {
                     alert('Por favor complete todos los campos.');
                 }
-            });
-
-            telaSelect.dispatchEvent(new Event('change'));
+            });            
 
             form.addEventListener('submit', function() {
                 actualizarCampoTelas();
