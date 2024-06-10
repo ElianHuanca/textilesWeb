@@ -34,7 +34,8 @@ class VentasController extends Controller
                 $join->on('t.id', '=', 'st.idtela')
                     ->where('t.estado', true);
             })
-            ->select('st.*', 't.*')
+            ->where('st.stock', '>', 0)
+            ->select('st.*', 't.*')            
             ->get();
 
         $telasPorSucursal = [];

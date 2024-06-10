@@ -56,7 +56,7 @@
                                         <label for="sucursal" class="form-label">sucursales</label>
                                         <select id="sucursal" class="form-control @error('sucursal') is-invalid @enderror"
                                             name="idsucursal" required>
-                                            <option value="">Seleccione una sucursal</option>
+                                            <option value="0">Seleccione una sucursal</option>
                                             @foreach ($sucursales as $sucursal)
                                                 <option value="{{ $sucursal->id }}"
                                                     {{ old('sucursal') == $sucursal->id ? 'selected' : '' }}>
@@ -84,8 +84,8 @@
                                         <label for="tela" class="form-label">Tela</label>
                                         <select id="tela" class="form-control @error('tela') is-invalid @enderror"
                                             name="idtela">
-                                            {{-- <option value="">Seleccione una tela</option>
-                                            @foreach ($telas as $tela)
+                                            <option value="0">Seleccione una tela</option>
+                                            {{--@foreach ($telas as $tela)
                                                 <option value="{{ $tela->id }}" data-precio="{{ $tela->precioxcompra }}"
                                                     data-nombre="{{ $tela->nombre }}" data-id="{{ $tela->id }}"
                                                     {{ old('tela') == $tela->id ? 'selected' : '' }}>
@@ -168,13 +168,12 @@
             const form = document.querySelector('form');
             const totalInput = document.getElementById('total');
             const almacenSelect = document.getElementById('almacen');
-            
+            const sucursalSelect = document.getElementById('sucursal');
+
             telaSelect.addEventListener('change', function() {
                 const selectedOption = telaSelect.options[telaSelect.selectedIndex];
                 const precio = selectedOption.getAttribute('data-precio');
                 precioInput.value = precio ? precio : '0';
-                totalInput.value = 0;
-                tablaTelas.
             });
 
             telaSelect.dispatchEvent(new Event('change'));
@@ -184,7 +183,7 @@
                 const idTela = selectedOption.getAttribute('data-id');
                 const nombreTela = selectedOption.getAttribute('data-nombre');
                 const precioVenta = precioVentaInput.value;
-                const cantidad = cantidadInput.value;                
+                const cantidad = cantidadInput.value;
                 if (nombreTela && precioVenta && cantidad) {
                     if (existeTela(idTela)) {
                         alert('La tela ya ha sido agregada.');
@@ -218,7 +217,7 @@
                 } else {
                     alert('Por favor complete todos los campos.');
                 }
-            });            
+            });
 
             form.addEventListener('submit', function() {
                 actualizarCampoTelas();
@@ -274,6 +273,41 @@
             if (!fechaInput.value) {
                 fechaInput.value = formattedToday;
             }
+
+            //Cambio En La Selección De Sucursal
+            function toggleTelaSelect() {
+                const selectedSucursalId = sucursalSelect.value;
+                const telasPorSucursal = {!! $telasPorSucursalJson !!};
+
+                if (selectedSucursalId == '0') {
+                    telaSelect.disabled = true;
+                } else {
+                    telaSelect.disabled = false;
+                    // Limpiar las opciones actuales del selector de telas
+                    telaSelect.innerHTML = '<option value="0">Seleccione una tela</option>';
+
+                    // Añadir las nuevas opciones basadas en la sucursal seleccionada
+                    if (selectedSucursalId && telasPorSucursal[selectedSucursalId]) {
+                        telasPorSucursal[selectedSucursalId].forEach(tela => {
+                            const option = document.createElement('option');
+                            option.value = tela.id;
+                            option.textContent = tela.nombre;
+                            option.setAttribute('data-precio', tela.precioxcompra);
+                            option.setAttribute('data-nombre', tela.nombre);
+                            option.setAttribute('data-id', tela.id);
+                            telaSelect.appendChild(option);
+                        });
+                    }
+                }
+                totalInput.value = 0;
+                telaSelect.value = '0';
+            }
+
+            // Initial check when the page loads
+            toggleTelaSelect();
+
+            // Add event listener to the sucursal select
+            sucursalSelect.addEventListener('change', toggleTelaSelect);
         });
     </script>
 @endsection
