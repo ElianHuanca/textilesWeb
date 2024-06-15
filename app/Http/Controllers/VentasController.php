@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetVentas;
 use App\Models\Sucursales;
+use App\Models\SucursalesTelas;
 use App\Models\Ventas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +37,8 @@ class VentasController extends Controller
                     ->where('t.estado', true);
             })
             ->where('st.stock', '>', 0)
-            ->select('st.*', 't.*')            
+            ->select('st.*', 't.*')
+            ->orderBy('t.nombre')
             ->get();
 
         $telasPorSucursal = [];
@@ -57,7 +60,31 @@ class VentasController extends Controller
     {
         $venta = new Ventas();
         $venta->fecha = $request->fecha;
+        $venta->total = $request->total;
+        $venta->ganancias = $request->ganancias;
+        $venta->descuento = $request->descuento ?: 0;
+        $venta->idsucursal = $request->idsucursal;
         $venta->idusuario = Auth::user()->id;
+        $venta->save();
+
+        $telas = is_string($request->telas) ? json_decode($request->telas, true) : $request->telas;
+
+        foreach ($telas as $tela) {
+            $detventa = new DetVentas();
+            $detventa->idventa = $venta->id;
+            $detventa->idtela = $tela['idTela'];
+            $detventa->precio = $tela['precioVenta'];
+            $detventa->cantidad = $tela['cantidad'];
+            $detventa->total = $tela['importe'];
+            $detventa->ganancias = $tela['ganancias'];
+            $detventa->save();
+
+            // Actualizar stock
+            SucursalesTelas::where('idsucursal', $venta->idsucursal)
+                ->where('idtela', $tela['idTela'])
+                ->decrement('stock', $tela['cantidad']);
+        }
+        return redirect()->route('ventas.index');
     }
 
     /**
@@ -65,7 +92,9 @@ class VentasController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $venta = Ventas::findOrFail($id);
+        $detventas = DetVentas::where('idventa', $id)->get();
+        return view('ventas.show', compact('venta', 'detventas'));
     }
 
     /**

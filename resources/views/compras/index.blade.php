@@ -13,8 +13,7 @@
                     </h2>
                 </div>                
                 <div class="col-12 col-md-auto ms-auto d-print-none">
-                    <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
-                        data-bs-target="#modal-report">                        
+                    <a href="{{ route('compras.create') }}" class="btn btn-primary d-none d-sm-inline-block">                        
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
@@ -53,8 +52,8 @@
                                         </th>
                                         <th>Fecha</th>
                                         <th>Total</th>
-                                        <th>TotalAG</th>
-                                        <th>Almacen</th>                                        
+                                        <th>TotalAG</th>   
+                                        <th>Proveedor</th>                                                                                                             
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -69,9 +68,17 @@
                                                 {{ $compra->total }}
                                             </td>
                                             <td>                                                
-                                                {{ $compra->totalAG }}
+                                                {{ $compra->totalag }}
                                             </td>
                                             <td>
+                                                {{ $compra->proveedor->nombre }}
+                                            </td>
+                                            <td>
+                                                {{ !$compra->gastos}}
+                                                <a href="{{ route('gastos.create', $compra->id) }}" title="adicionar gastos">
+                                                    <i class="ti ti-plus"></i>
+                                                </a>
+                                                
                                                 <a href="{{ route('compras.show', $compra->id) }}" title="Ver">
                                                     <i class="ti ti-eye"></i>
                                                 </a>

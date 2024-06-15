@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlmacenesController;
 use App\Http\Controllers\ComprasController;
+use App\Http\Controllers\GastosController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\SucursalesController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\TelasController;
 use App\Http\Controllers\TipoGastosController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentasController;
-use App\Models\Proveedores;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +52,5 @@ Route::resource('proveedores', ProveedoresController::class)->names('proveedores
 Route::resource('tipogastos', TipoGastosController::class)->names('tipogastos');
 Route::resource('ventas', VentasController::class)->names('ventas');
 Route::resource('compras', ComprasController::class)->names('compras');
+
+Route::get('gastos/create/{idcompra}', [GastosController::class, 'create'])->name('gastos.create');

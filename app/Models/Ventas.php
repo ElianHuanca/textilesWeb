@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Ventas extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = ['fecha', 'total', 'ganancias', 'descuento', 'idsucursal', 'idusuario', 'estado'];
 
+    public $timestamps = false;
+    
     public function sucursal()
     {
         return $this->belongsTo(Sucursales::class, 'idsucursal');

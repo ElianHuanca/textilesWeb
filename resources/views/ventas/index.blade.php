@@ -54,7 +54,7 @@
                                         <th>Total</th>
                                         <th>Ganancias</th>
                                         <th>Descuento</th>                                        
-                                        <th>Almacen</th>                                        
+                                        <th>Sucursal</th>                                        
                                         <th>Vendedor</th>                                        
                                         <th>Acciones</th>
                                     </tr>

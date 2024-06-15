@@ -82,26 +82,31 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="tela" class="form-label">Tela</label>
-                                        <select id="tela" class="form-control @error('tela') is-invalid @enderror"
-                                            name="idtela">
+                                        <select id="tela" class="form-control" name="idtela">
                                             <option value="0">Seleccione una tela</option>
-                                            {{--@foreach ($telas as $tela)
-                                                <option value="{{ $tela->id }}" data-precio="{{ $tela->precioxcompra }}"
-                                                    data-nombre="{{ $tela->nombre }}" data-id="{{ $tela->id }}"
-                                                    {{ old('tela') == $tela->id ? 'selected' : '' }}>
-                                                    {{ $tela->nombre }}
-                                                </option>
-                                            @endforeach --}}
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="precioxcompra" class="form-label">Precio Compra</label>
-                                        <div class="input-group">
-                                            <input id="precioxcompra" type="text"
-                                                class="form-control @error('precioxcompra') is-invalid @enderror"
-                                                name="precioxcompra" value="{{ old('precioxcompra') }}" readonly autofocus>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Bs</span>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="precioxcompra" class="form-label">Precio Compra</label>
+                                                <div class="input-group">
+                                                    <input id="precioxcompra" type="text" class="form-control"
+                                                        name="precioxcompra" value="0" readonly autofocus>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">Bs</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="stock" class="form-label">stock</label>
+                                                <div class="input-group">
+                                                    <input id="stock" type="text" class="form-control" name="stock"
+                                                        value="0" readonly autofocus>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">mts</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -134,13 +139,14 @@
                                 <br>
 
                                 <input type="hidden" id="telas" name="telas">
-
+                                <input type="hidden" id="ganancias" name="ganancias" value="0">
                                 <table class="table mt-3">
                                     <thead>
                                         <tr>
                                             <th>Nombre Tela</th>
                                             <th>Precio Venta</th>
                                             <th>Cantidad</th>
+                                            <th>Importe</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -165,18 +171,54 @@
             const agregarButton = document.getElementById('agregar-tela');
             const tablaTelas = document.getElementById('tabla-telas');
             const telasInput = document.getElementById('telas');
-            const form = document.querySelector('form');
+            const gananciasInput = document.getElementById('ganancias');
+            //const form = document.querySelector('form');
             const totalInput = document.getElementById('total');
             const almacenSelect = document.getElementById('almacen');
             const sucursalSelect = document.getElementById('sucursal');
+            const stockInput = document.getElementById('stock');
 
-            telaSelect.addEventListener('change', function() {
+            function eventTelaSelectChange() {
                 const selectedOption = telaSelect.options[telaSelect.selectedIndex];
                 const precio = selectedOption.getAttribute('data-precio');
                 precioInput.value = precio ? precio : '0';
-            });
+                const stock = selectedOption.getAttribute('data-stock');
+                stockInput.value = stock ? stock : '0';
+            }
 
-            telaSelect.dispatchEvent(new Event('change'));
+            telaSelect.addEventListener('change', eventTelaSelectChange);
+
+            function validarDatos(idTela, precioVenta, cantidad) {
+
+
+                if (telaSelect.value == '0' || precioVentaInput.value == '' || cantidadInput.value == '') {
+                    alert('Por favor complete todos los campos.');
+                    return false;
+                }
+
+                if (isNaN(parseFloat(precioVenta)) || isNaN(parseFloat(cantidad))) {
+                    alert('Por favor ingrese un número válido.');
+                    return false;
+                }
+
+                if (parseFloat(cantidad) > parseFloat(stockInput.value)) {
+                    alert('La cantidad supera el stock disponible.');
+                    return false;
+                }
+
+                if (parseFloat(precioVenta) < precioInput.value) {
+                    alert('El precio de venta no puede ser menor al precio de compra.');
+                    return false;
+                }
+
+                if (existeTela(idTela)) {
+                    alert('La tela ya ha sido agregada.');
+                    return false;
+                }
+
+                return true;
+
+            }
 
             agregarButton.addEventListener('click', function() {
                 const selectedOption = telaSelect.options[telaSelect.selectedIndex];
@@ -184,44 +226,45 @@
                 const nombreTela = selectedOption.getAttribute('data-nombre');
                 const precioVenta = precioVentaInput.value;
                 const cantidad = cantidadInput.value;
-                if (nombreTela && precioVenta && cantidad) {
-                    if (existeTela(idTela)) {
-                        alert('La tela ya ha sido agregada.');
-                        return;
-                    }
-                    const nuevaFila = document.createElement('tr');
 
-                    nuevaFila.innerHTML = `                    
+                if (!validarDatos(idTela, precioVenta, cantidad)) {
+                    return;
+                }
+
+                const nuevaFila = document.createElement('tr');
+
+                nuevaFila.innerHTML = `                    
                     <td hidden>${idTela}</td>
                     <td>${nombreTela}</td>
                     <td>${precioVenta}</td>
                     <td>${cantidad}</td>
+                    <td hidden>${precioInput.value}</td>
+                    <td>${parseFloat(precioVenta) * parseFloat(cantidad)}</td>
                     <td>
                         <button type="button" class="btn btn-danger btn-sm borrar-fila">Eliminar</button>
                     </td>
                     `;
 
-                    tablaTelas.appendChild(nuevaFila);
+                tablaTelas.appendChild(nuevaFila);
 
-                    nuevaFila.querySelector('.borrar-fila').addEventListener('click', function() {
-                        nuevaFila.remove();
-                        actualizarCampoTelas();
-                    });
-
-                    telaSelect.value = '';
-                    precioInput.value = '';
-                    precioVentaInput.value = '';
-                    cantidadInput.value = '';
-
+                nuevaFila.querySelector('.borrar-fila').addEventListener('click', function() {
+                    nuevaFila.remove();
                     actualizarCampoTelas();
-                } else {
-                    alert('Por favor complete todos los campos.');
-                }
+                });
+
+                telaSelect.value = '0';
+                precioInput.value = '0';
+                precioVentaInput.value = '';
+                cantidadInput.value = '';
+                stockInput.value = '0';
+
+                actualizarCampoTelas();
+
             });
 
-            form.addEventListener('submit', function() {
+            /* form.addEventListener('submit', function() {
                 actualizarCampoTelas();
-            });
+            }); */
 
             function existeTela(idTela) {
                 const filas = tablaTelas.querySelectorAll('tr');
@@ -239,20 +282,28 @@
                 const filas = tablaTelas.querySelectorAll('tr');
                 const telas = [];
                 totalInput.value = 0;
+                gananciasInput.value = 0;
                 filas.forEach((fila) => {
                     const celdas = fila.querySelectorAll('td');
                     const idTela = celdas[0].textContent;
                     const nombreTela = celdas[1].textContent;
                     const precioVenta = celdas[2].textContent;
                     const cantidad = celdas[3].textContent;
+                    const precioCompra = celdas[4].textContent;
+                    const importe = celdas[5].textContent;
+                    const ganancias = cantidad * (precioVenta - precioCompra);
                     totalInput.value = parseFloat(totalInput.value) + parseFloat(precioVenta) * parseFloat(
                         cantidad);
+                    gananciasInput.value = parseFloat(gananciasInput.value) + (parseFloat(precioVenta) -
+                        parseFloat(precioCompra)) * parseFloat(cantidad);
 
                     telas.push({
                         idTela,
                         nombreTela,
                         precioVenta,
-                        cantidad
+                        cantidad,
+                        importe,
+                        ganancias
                     });
                 });
 
@@ -292,6 +343,7 @@
                             const option = document.createElement('option');
                             option.value = tela.id;
                             option.textContent = tela.nombre;
+                            option.setAttribute('data-stock', tela.stock);
                             option.setAttribute('data-precio', tela.precioxcompra);
                             option.setAttribute('data-nombre', tela.nombre);
                             option.setAttribute('data-id', tela.id);
@@ -300,7 +352,19 @@
                     }
                 }
                 totalInput.value = 0;
+                gananciasInput.value = 0;
                 telaSelect.value = '0';
+                eventTelaSelectChange();
+                borrarTodasLasFilas();
+            }
+
+            // Función para borrar todas las filas de la tabla
+            function borrarTodasLasFilas() {
+                // Selecciona todas las filas de la tabla
+                const filas = tablaTelas.querySelectorAll('tr');
+
+                // Recorre todas las filas y las elimina
+                filas.forEach(fila => fila.remove());
             }
 
             // Initial check when the page loads

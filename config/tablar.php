@@ -144,11 +144,11 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
+        /* [
             'text' => 'Perfil',
             'icon' => 'ti ti-user',
-            'url' => 'home'
-        ],
+            'route' => 'users.show'
+        ], */        
         [            
             'text' => 'Administracion',
             'url' => '#',
@@ -158,10 +158,10 @@ return [
                 [
                     'text' => 'Gestionar Usuarios',
                     'route' => 'users.index',
-                    'icon' => 'ti ti-usercircle',
+                    'icon' => 'ti ti-users',
                 ],
             ]
-        ],        
+        ],   
         [            
             'text' => 'Inventario',
             'url' => '#',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -27,6 +28,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function show()
+    {
+        // Retornar la vista 'usuario.show' y pasar los datos del usuario a la vista
+        $user = Auth::user();
+        return view('usuario.show', compact('user'));
+    }
     public function create()
     {
         // Retornar la vista 'usuario.create'

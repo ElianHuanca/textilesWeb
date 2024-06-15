@@ -50,9 +50,9 @@ FOR EACH ROW
 EXECUTE FUNCTION insertar_en_telas2();
 
 
-INSERT INTO usuarios(name,email,password) VALUES 
+/*INSERT INTO usuarios(name,email,password) VALUES 
 ('Isela Huanca','ise@gmail.com','$2a$10$qAVkPAIHnamNzbDeMb94t.em.plQpqP8s/Bwy.LrZsCOqnWveg7He'),
-('Mary Choque','mary@gmail.com','$2a$10$pyLUOKvtKEgB2PUyvCT.VO0Sm/2Lf3Y9zroRBg2ET8L6t5ja1n0rS');
+('Mary Choque','mary@gmail.com','$2a$10$pyLUOKvtKEgB2PUyvCT.VO0Sm/2Lf3Y9zroRBg2ET8L6t5ja1n0rS');*/
 
 INSERT INTO proveedores(nombre) values
 ('LIC'),

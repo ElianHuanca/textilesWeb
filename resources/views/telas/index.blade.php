@@ -68,18 +68,15 @@
                                 </thead>
                                 <tbody>                                    
                                     @foreach($telas as $tela)
-                                        <tr>
-                                            {{-- <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                    aria-label="Select tela"></td>
-                                            <td><span class="text-muted">{{ $loop->iteration }}</span></td> --}}
+                                        <tr>                                            
                                             <td>{{ $tela->id }}</td>
                                             <td>{{ $tela->nombre }}</td>                                            
                                             <td>{{ $tela->precioxmen }}</td>
                                             <td>{{ $tela->precioxmay }}</td>                                            
                                             <td>{{ $tela->precioxrollo }}</td>
                                             <td>{{ $tela->precioxcompra }}</td>
-                                            <td>{{ $tela->rop }}</td>
-                                            <td>{{ $tela->stockseguridad }}</td>
+                                            {{-- <td>{{ $tela->rop }}</td> --}}
+                                            {{-- <td>{{ $tela->stockseguridad }}</td> --}}
                                             <td>{{ $tela->proveedor->nombre }}</td>
                                             <td>         
                                                 <a href="{{ route('telas.show', $tela->id) }}" title="Ver">

@@ -9,15 +9,30 @@ class Compras extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fecha', 'total', 'totalAG', 'idalmacen'];
+    protected $fillable = ['fecha', 'total', 'totalAG', 'idproveedor','estado'];
+
+    public $timestamps = false;
 
     public function detCompras()
     {
         return $this->hasMany(DetCompras::class, 'idcompra');
     }
 
-    public function almacen()
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedores::class, 'idproveedor');
+    }
+
+    public function recepcion()
+    {
+        return $this->hasMany(Recepciones::class, 'idcompra');
+    }
+
+    public function gastos(){
+        return $this->hasMany(AdicionGastos::class, 'idcompra');
+    }
+    /* public function almacen()
     {
         return $this->belongsTo(Almacenes::class, 'idalmacen');
-    }
+    } */
 }

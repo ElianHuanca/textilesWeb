@@ -9,13 +9,13 @@
         </div>
         <div class="card card-md">
             <div class="card-body">
-                <h2 class="h2 text-center mb-4">Login to your account</h2>
+                <h2 class="h2 text-center mb-4">Iniciar Session</h2>
                 <form action="{{route('login')}}" method="post" autocomplete="off" novalidate>
                     @csrf
                     <div class="mb-3">
-                        <label class="form-label">Email address</label>
+                        <label class="form-label">Correo Electronico</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                               placeholder="your@email.com"
+                               placeholder="tu@email.com"
                                autocomplete="off">
                         @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -23,15 +23,15 @@
                     </div>
                     <div class="mb-2">
                         <label class="form-label">
-                            Password
+                            Contraseña
                             <span class="form-label-description">
-                    <a href="{{route('password.request')}}">I forgot password</a>
+                    <a href="{{route('password.request')}}">Olvide mi contraseña</a>
                   </span>
                         </label>
                         <div class="input-group input-group-flat">
                             <input type="password" name="password"
                                    class="form-control @error('password') is-invalid @enderror"
-                                   placeholder="Your password"
+                                   placeholder="Tu Contraseña"
                                    autocomplete="off">
                             <span class="input-group-text">
                     <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
@@ -51,15 +51,15 @@
                     <div class="mb-2">
                         <label class="form-check">
                             <input type="checkbox" class="form-check-input"/>
-                            <span class="form-check-label">Remember me on this device</span>
+                            <span class="form-check-label">Recordarme en este dispositivo</span>
                         </label>
                     </div>
                     <div class="form-footer">
-                        <button type="submit" class="btn btn-primary w-100">Sign in</button>
+                        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
                     </div>
                 </form>
             </div>
-            <div class="hr-text">or</div>
+            {{-- <div class="hr-text">or</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col"><a href="#" class="btn btn-white w-100">
@@ -86,10 +86,10 @@
                         </a></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         @if(Route::has('register'))
             <div class="text-center text-muted mt-3">
-                Don't have account yet? <a href="{{route('register')}}" tabindex="-1">Sign up</a>
+                No tenes una cuenta? <a href="{{route('register')}}" tabindex="-1">Registrate</a>
             </div>
         @endif
     </div>

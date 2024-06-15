@@ -13,6 +13,14 @@ class SucursalesTelas extends Model
 
     protected $fillable = ['idsucursal', 'idtela', 'stock'];
 
+    // Indicar que no hay una clave primaria incrementada
+    public $incrementing = false;
+
+    // Si no hay una columna 'id', indicar que no hay clave primaria
+    protected $primaryKey = null;
+    
+    public $timestamps = false;
+
     public function tela()
     {
         return $this->belongsTo(Telas::class, 'idtela');

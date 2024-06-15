@@ -1,11 +1,15 @@
-CREATE TABLE IF NOT EXISTS usuarios(
+/*CREATE TABLE IF NOT EXISTS usuarios(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(100),
 	email VARCHAR(100) unique,
 	password VARCHAR(255),
 	token text,
 	estado boolean default true
-);
+);*/
+
+ALTER TABLE users 
+ADD COLUMN rol integer DEFAULT 1; --1:Gerente, 2: Vendedor, 3:Almacen
+
 
 CREATE TABLE IF NOT EXISTS proveedores(
 	id SERIAL PRIMARY KEY,
@@ -36,8 +40,8 @@ CREATE TABLE IF NOT EXISTS telas (
     precioxmay DOUBLE PRECISION default 0,
     precioxmen DOUBLE PRECISION default 0,
     precioxrollo DOUBLE PRECISION default 0,
-    rop int default 0,
-    stockseguridad int default 0,
+    rop DOUBLE PRECISION default 0,
+   	seguridad DOUBLE PRECISION default 0,
 	idproveedor int,
 	estado boolean default true,
 	CONSTRAINT fk_proveedor FOREIGN KEY (idproveedor) REFERENCES proveedores(id) ON DELETE CASCADE ON UPDATE RESTRICT
@@ -93,10 +97,12 @@ CREATE TABLE IF NOT EXISTS compras(
     id SERIAL PRIMARY KEY,
     fecha DATE DEFAULT NOW (),
     total DOUBLE PRECISION,
-    totalAG DOUBLE PRECISION,
-    idalmacen int,
+    totalag DOUBLE precision default 0,
+    --idalmacen int,
     estado boolean default true,
-    CONSTRAINT fk_almacen FOREIGN KEY (idalmacen) REFERENCES almacenes(id) ON DELETE CASCADE ON UPDATE RESTRICT
+    idproveedor int,
+    CONSTRAINT fk_proveedor FOREIGN KEY (idproveedor) REFERENCES proveedores(id) ON DELETE CASCADE ON UPDATE RESTRICT
+    --CONSTRAINT fk_almacen FOREIGN KEY (idalmacen) REFERENCES almacenes(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS det_compras(
@@ -104,7 +110,7 @@ CREATE TABLE IF NOT EXISTS det_compras(
 	idtela INT,
 	cantidad DOUBLE PRECISION,
 	precio DOUBLE PRECISION,
-	precioAG DOUBLE precision,
+	totalag DOUBLE precision default 0,
 	total DOUBLE precision,
 	estado boolean default true,
 	CONSTRAINT pk_compra_tela PRIMARY KEY (idcompra, idtela),
@@ -126,4 +132,16 @@ CREATE TABLE IF NOT EXISTS adiciongastos(
 	CONSTRAINT pk_compra_gasto PRIMARY KEY (idcompra, idgasto),
 	CONSTRAINT fk_compra FOREIGN KEY (idcompra) REFERENCES compras(id) ON DELETE CASCADE ON UPDATE RESTRICT,
     CONSTRAINT fk_gasto FOREIGN KEY (idgasto) REFERENCES tipogastos(id) ON DELETE CASCADE ON UPDATE RESTRICT
+);
+
+create table if not exists recepciones(
+	id SERIAL PRIMARY KEY,
+	idcompra int,
+	idalmacen int,
+	idusuario int, --ENCARGADO DE ALMACEN
+	fecha date DEFAULT NOW (),
+	tiempo int,
+	CONSTRAINT fk_compra FOREIGN KEY (idcompra) REFERENCES compras(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+	CONSTRAINT fk_almacen FOREIGN KEY (idalmacen) REFERENCES almacenes(id) ON DELETE CASCADE ON UPDATE RESTRICT,
+	CONSTRAINT fk_usuario FOREIGN KEY (idusuario) REFERENCES users(id) ON DELETE CASCADE ON UPDATE RESTRICT	
 );

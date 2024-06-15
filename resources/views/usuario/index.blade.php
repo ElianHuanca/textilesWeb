@@ -23,7 +23,7 @@
             <div class="card-header">
                 <h3 class="card-title">Lista de usuarios</h3>
             </div>
-            <div class="card-body border-bottom py-3">
+            {{-- <div class="card-body border-bottom py-3">
                 <div class="d-flex">
                     <div class="text-muted">
                         Show
@@ -39,26 +39,40 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="table-responsive">
                 <table class="table card-table table-vcenter text-nowrap datatable">
                     <thead>
-                        <tr>
-                            <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select all users"></th>
-                            <th class="w-1">No.</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Created</th>
+                        <tr>                            
+                            <th class="w-1">#</th>
+                            <th>Nombre</th>
+                            <th>Correo Electronico</th>
+                            <th>Rol</th>
+                            <th>Fecha Creacion</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($users as $user)
-                            <tr>
-                                <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select user"></td>
-                                <td>{{ $loop->index + $users->firstItem() }}</td>
+                            <tr>                                
+                                <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>
+                                    @switch($user->rol)
+                                        @case(1)
+                                            Gerente
+                                            @break
+                                        @case(2)
+                                            Vendedor
+                                            @break
+                                        @case(3)
+                                            Encargado de Almacén
+                                            @break
+                                        @default
+                                            Desconocido
+                                    @endswitch
+                                </td>
                                 <td>{{ $user->created_at }}</td>
                                 <td>
                                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>

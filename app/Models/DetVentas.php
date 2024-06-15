@@ -8,8 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class DetVentas extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = ['idventa', 'idtela', 'precio', 'cantidad', 'total', 'ganancias', 'estado'];
+
+    // Indicar que no hay una clave primaria incrementada
+    public $incrementing = false;
+
+    // Si no hay una columna 'id', indicar que no hay clave primaria
+    protected $primaryKey = null;
+    
+    public $timestamps = false;
 
     public function venta()
     {
