@@ -54,3 +54,4 @@ Route::resource('ventas', VentasController::class)->names('ventas');
 Route::resource('compras', ComprasController::class)->names('compras');
 
 Route::get('gastos/create/{idcompra}', [GastosController::class, 'create'])->name('gastos.create');
+Route::post('gastos', [GastosController::class, 'store'])->name('gastos.store');
