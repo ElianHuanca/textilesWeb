@@ -10,6 +10,7 @@ use App\Models\DetCompras;
 use App\Models\Recepciones;
 use App\Models\SucursalesTelas;
 use App\Models\Telas;
+use App\Models\Ventas;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,13 +54,42 @@ class RecepcionesController extends Controller
             AlmacenesTelas::where('idtela', $detcompra->idtela)
                 ->where('idalmacen', $request->idalmacen)
                 ->increment('stock', $detcompra->cantidad);
+            $this->actualizarROP($detcompra);
         }
 
         return redirect()->route('recepciones.index');
     }
 
-    public function actualizarROP(){
-        
+    public function actualizarROP(DetCompras $detcompra){
+        $tiempoEntregaPromedio = Recepciones::selectRaw('AVG(tiempo) as tiempoPromedio')->where('idcompra',$detcompra->idcompra)->first()->tiempoPromedio;
+        $venta = Ventas::whereHas('detVentas', function($query) use ($detcompra) {
+            $query->where('idtela', $detcompra->idtela);
+        })->latest('fecha')->first();
+        if ($venta === null) {            
+            return;
+        }
+        $fechaUltimaVenta = $venta->fecha;
+        $fechaPrimeraVenta = Ventas::whereHas('detVentas', function($query) use ($detcompra) {
+            $query->where('idtela', $detcompra->idtela);
+        })->oldest('fecha')->first()->fecha;        
+        $intervalo = $fechaUltimaVenta->diff($fechaPrimeraVenta);
+        $periodo = $intervalo->days; 
+        if ($periodo == 0) {
+            $periodo = 1;
+        }else{
+            $periodo = $periodo * 0.857143; // aqui se le corta al periodo porque no se atiende los domingos
+        }
+        $historialDeDemanda = Ventas::whereHas('detVentas', function($query) use ($detcompra) {
+            $query->where('idtela', $detcompra->idtela);
+        })->sum('cantidad');
+
+        $demandaPromedio = $historialDeDemanda / $periodo;
+
+        $tela = Telas::find($detcompra->idtela);
+        $rop = $demandaPromedio * $tiempoEntregaPromedio + $tela->seguridad;
+        $tela->rop = $rop;
+        $tela->seguridad = $rop * 0.2;
+        $tela->save();
     }
 
     public function actualizarCostoPromedioPonderado(DetCompras $detcompra){

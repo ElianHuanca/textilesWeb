@@ -61,7 +61,7 @@
                                         <th>Precio Menor</th>                                        
                                         <th>Precio Mayor</th>                                        
                                         <th>Precio Rollo</th>
-                                        <th>Precio De Compra</th>
+                                        <th>Costo Unitario</th>
                                         <th>Proveedor</th>
                                         <th>Acciones</th>                                        
                                     </tr>

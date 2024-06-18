@@ -56,6 +56,9 @@
                                                 {{ $compra->total }}
                                             </td>
                                             <td>
+                                                {{ $compra->totalag }}
+                                            </td>
+                                            <td>
                                                 {{ $compra->proveedor->nombre }}
                                             </td>
                                             <td>
