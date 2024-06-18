@@ -59,8 +59,7 @@ class ComprasController extends Controller
         $compra->idproveedor = $request->idproveedor;
         $compra->save();
         
-        $telas = is_string($request->telas) ? json_decode($request->telas, true) : $request->telas;
-        foreach ($telas as $tela) {
+        $telas = is_string($request->telas) ? json_decode($request->telas, true) : $request->telas;        foreach ($telas as $tela) {
             $detCompra = new DetCompras();
             $detCompra->idcompra = $compra->id;
             $detCompra->idtela = $tela['idtela'];

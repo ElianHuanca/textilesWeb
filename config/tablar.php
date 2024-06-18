@@ -183,6 +183,11 @@ return [
                     'url' => 'support1',
                     'icon' => 'ti ti-box',
                 ],
+                [
+                    'text' => 'Recepcionar Compras',
+                    'url' => 'recepciones',
+                    'icon' => 'ti ti-box',
+                ]
             ],
         ],        
         [

@@ -24,8 +24,7 @@ class GastosController extends Controller
         return view('gastos.create', compact('compra','detcompras', 'tipogastos'));
     }
 
-    public function store(Request $request){  
-        //dd($request->all());      
+    public function store(Request $request){          
         $gastos = is_string($request->gastos) ? json_decode($request->gastos, true) : $request->gastos;
         foreach ($gastos as $gasto){
             $ag = new AdicionGastos();
@@ -36,9 +35,9 @@ class GastosController extends Controller
         }        
         $telas = is_string($request->telas) ? json_decode($request->telas, true) : $request->telas;
         foreach ($telas as $tela){
-            $dc = DetCompras::where('idcompra', $request->idcompra)->where('idtela', $tela['idtela'])->first();
-            $dc->totalag = $tela['totalag'];
-            $dc->save();
+            DetCompras::where('idcompra', $request->idcompra)
+                ->where('idtela', $tela['idtela'])
+                ->increment('totalag', $tela['totalag']);            
         }
         $compra = Compras::find($request->idcompra);
         $compra->totalag = $request->totalag;

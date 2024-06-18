@@ -9,7 +9,7 @@ class DetCompras extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['idcompra', 'idtela', 'cantidad', 'precio', 'totalAG','total'];
+    protected $fillable = ['idcompra', 'idtela', 'cantidad', 'precio', 'totalag','total'];
 
     // Indicar que no hay una clave primaria incrementada
     public $incrementing = false;

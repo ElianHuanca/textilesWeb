@@ -9,20 +9,8 @@
                         Overview
                     </div>
                     <h2 class="page-title">
-                        Compras
+                        Recepciones De Compras
                     </h2>
-                </div>
-                <div class="col-12 col-md-auto ms-auto d-print-none">
-                    <a href="{{ route('compras.create') }}" class="btn btn-primary d-none d-sm-inline-block">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <line x1="12" y1="5" x2="12" y2="19" />
-                            <line x1="5" y1="12" x2="19" y2="12" />
-                        </svg>
-                        Crear Nueva Compra
-                    </a>
                 </div>
             </div>
         </div>
@@ -35,7 +23,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Listado De Compras</h3>
+                            <h3 class="card-title">Listado De Compras Sin Recepcionar</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table card-table table-vcenter text-nowrap datatable">
@@ -50,7 +38,7 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-                                        <th>Fecha</th>
+                                        <th>Fecha Compra</th>
                                         <th>Total</th>
                                         <th>Total Gastos</th>
                                         <th>Proveedor</th>
@@ -58,7 +46,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($compras as $compra)
+                                    @foreach ($comprasnr as $compra)
                                         <tr>
                                             <td><span class="text-muted">{{ $compra->id }}</span></td>
                                             <td>
@@ -68,34 +56,13 @@
                                                 {{ $compra->total }}
                                             </td>
                                             <td>
-                                                {{ $compra->totalag }}
-                                            </td>
-                                            <td>
                                                 {{ $compra->proveedor->nombre }}
                                             </td>
                                             <td>
-                                                @if ($compra->totalag == 0)
-                                                    <a href="{{ route('gastos.create', $compra->id) }}"
-                                                        title="adicionar gastos">
-                                                        <i class="ti ti-plus"></i>
-                                                    </a>
-                                                @endif
-                                                <a href="{{ route('compras.show', $compra->id) }}" title="Ver">
-                                                    <i class="ti ti-eye"></i>
+                                                <a href="{{ route('recepciones.create', $compra->id) }}"
+                                                    title="recepcionar compra">
+                                                    <i class="ti ti-book"></i>
                                                 </a>
-                                                <a href="{{ route('compras.edit', $compra) }}" title="Editar">
-                                                    <i class="ti ti-edit"></i>
-                                                </a>
-                                                <form action="{{ route('compras.destroy', $compra->id) }}" method="POST"
-                                                    style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" title="Eliminar"
-                                                        onclick="return confirm('¿Estás seguro de eliminar este elemento?');"
-                                                        style="background:none; border:none; padding:0; margin:0; cursor:pointer;">
-                                                        <i class="ti ti-trash" style="color: #0054a6"></i>
-                                                    </button>
-                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
