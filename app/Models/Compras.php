@@ -35,4 +35,9 @@ class Compras extends Model
     {
         return $this->belongsTo(Almacenes::class, 'idalmacen');
     } */
+
+    public function isRecepcionado()
+    {
+        return $this->recepcion()->exists();
+    }
 }

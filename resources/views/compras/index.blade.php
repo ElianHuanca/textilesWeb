@@ -74,7 +74,7 @@
                                                 {{ $compra->proveedor->nombre }}
                                             </td>
                                             <td>
-                                                @if ($compra->totalag == 0)
+                                                @if ($compra->totalag == 0 && !$compra->isRecepcionado())
                                                     <a href="{{ route('gastos.create', $compra->id) }}"
                                                         title="adicionar gastos">
                                                         <i class="ti ti-plus"></i>

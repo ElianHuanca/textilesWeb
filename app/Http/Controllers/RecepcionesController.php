@@ -7,6 +7,7 @@ use App\Models\Almacenes;
 use App\Models\AlmacenesTelas;
 use App\Models\Compras;
 use App\Models\DetCompras;
+use App\Models\DetVentas;
 use App\Models\Recepciones;
 use App\Models\SucursalesTelas;
 use App\Models\Telas;
@@ -68,10 +69,10 @@ class RecepcionesController extends Controller
         if ($venta === null) {            
             return;
         }
-        $fechaUltimaVenta = $venta->fecha;
-        $fechaPrimeraVenta = Ventas::whereHas('detVentas', function($query) use ($detcompra) {
+        $fechaUltimaVenta = new DateTime($venta->fecha);
+        $fechaPrimeraVenta = new DateTime(Ventas::whereHas('detVentas', function($query) use ($detcompra) {
             $query->where('idtela', $detcompra->idtela);
-        })->oldest('fecha')->first()->fecha;        
+        })->oldest('fecha')->first()->fecha);        
         $intervalo = $fechaUltimaVenta->diff($fechaPrimeraVenta);
         $periodo = $intervalo->days; 
         if ($periodo == 0) {
@@ -79,9 +80,8 @@ class RecepcionesController extends Controller
         }else{
             $periodo = $periodo * 0.857143; // aqui se le corta al periodo porque no se atiende los domingos
         }
-        $historialDeDemanda = Ventas::whereHas('detVentas', function($query) use ($detcompra) {
-            $query->where('idtela', $detcompra->idtela);
-        })->sum('cantidad');
+
+        $historialDeDemanda = DetVentas::where('idtela', $detcompra->idtela)->sum('cantidad');
 
         $demandaPromedio = $historialDeDemanda / $periodo;
 

@@ -51,15 +51,15 @@ class ComprasController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //dd($request->all());
+    {        
         $compra = new Compras();
         $compra->fecha = $request->fecha;
         $compra->total = $request->total;
         $compra->idproveedor = $request->idproveedor;
         $compra->save();
         
-        $telas = is_string($request->telas) ? json_decode($request->telas, true) : $request->telas;        foreach ($telas as $tela) {
+        $telas = is_string($request->telas) ? json_decode($request->telas, true) : $request->telas;        
+        foreach ($telas as $tela) {
             $detCompra = new DetCompras();
             $detCompra->idcompra = $compra->id;
             $detCompra->idtela = $tela['idtela'];
