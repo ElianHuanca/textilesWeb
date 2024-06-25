@@ -218,4 +218,3 @@ insert into det_ventas(idventa,idtela,precio,cantidad,total,ganancias) values
 (21,10,15,10,150,50),
 (22,9,12,150,1800,600),
 (22,10,15,100,1500,500);
-
