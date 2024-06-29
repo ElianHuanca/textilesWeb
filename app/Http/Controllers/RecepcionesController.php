@@ -37,7 +37,7 @@ class RecepcionesController extends Controller
 
     public function store(Request $request)
     {
-        /* $compra = Compras::find($request->idcompra);
+        $compra = Compras::find($request->idcompra);
         $recepcion = new Recepciones();
         $recepcion->idcompra = $request->idcompra;
         $recepcion->idalmacen = $request->idalmacen;
@@ -47,14 +47,14 @@ class RecepcionesController extends Controller
         $fechaRecepcion = new DateTime($request->fecha);
         $intervalo = $fechaCompra->diff($fechaRecepcion);
         $recepcion->tiempo = $intervalo->days;
-        $recepcion->save(); */
+        $recepcion->save();
 
         $detcompras = DetCompras::where('idcompra', $request->idcompra)->get();
         foreach ($detcompras as $detcompra) {
-            /* $this->actualizarCostoPromedioPonderado($detcompra);
+            $this->actualizarCostoPromedioPonderado($detcompra);
             AlmacenesTelas::where('idtela', $detcompra->idtela)
                 ->where('idalmacen', $request->idalmacen)
-                ->increment('stock', $detcompra->cantidad); */
+                ->increment('stock', $detcompra->cantidad);
             $this->actualizarROP($detcompra);
         }
 
@@ -62,10 +62,13 @@ class RecepcionesController extends Controller
     }
 
     public function actualizarROP(DetCompras $detcompra){
+        // Calcular el tiempo de entrega promedio de la tela
         $tiempoEntregaPromedio = Compras::join('det_compras as dc', 'compras.id', '=', 'dc.idcompra')
         ->join('recepciones as r', 'compras.id', '=', 'r.idcompra')
         ->where('dc.idtela', $detcompra->idtela)
         ->avg('r.tiempo');        
+
+        // Calcular el periodo de tiempo entre la primera y última venta de la tela
         $venta = Ventas::whereHas('detVentas', function($query) use ($detcompra) {
             $query->where('idtela', $detcompra->idtela);
         })->latest('fecha')->first();
@@ -83,18 +86,19 @@ class RecepcionesController extends Controller
         }else{
             $periodo = $periodo * 0.857143; // aqui se le corta al periodo porque no se atiende los domingos
         }
-        
+
+        //Calcular la demanda promedio de la tela
         $historialDeDemanda = DetVentas::where('idtela', $detcompra->idtela)->sum('cantidad');
-        
+        //Calcular la demanda promedio de la tela
         $demandaPromedio = $historialDeDemanda / $periodo;
         
         $tela = Telas::find($detcompra->idtela);
-        $rop = $demandaPromedio * $tiempoEntregaPromedio + $tela->seguridad;
-        //dd($rop);
+        // Calcular el punto de reorden de la tela
+        $rop = $demandaPromedio * $tiempoEntregaPromedio + $tela->seguridad;        
+        // Actualizar el punto de reorden en la base de datos
         $tela->rop = $rop;
-        $tela->seguridad = $rop * 0.2;
-        dd($tela);
-        //$tela->save();
+        $tela->seguridad = $rop * 0.1;        
+        $tela->save();
     }
 
     public function actualizarCostoPromedioPonderado(DetCompras $detcompra){

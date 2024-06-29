@@ -85,8 +85,8 @@
                                                 <a href="{{ route('sucursales.edit', $sucursal) }}" title="Editar">
                                                     <i class="ti ti-edit"></i>
                                                 </a>
-                                                <form action="{{ route('sucursales.destroy', $sucursal->id) }}" method="POST"
-                                                    style="display:inline;">
+                                                <form action="{{ route('sucursales.destroy', $sucursal->id) }}"
+                                                    method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" title="Eliminar"
@@ -110,8 +110,8 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Mostrando {{ $sucursales->firstItem() }} de
-                                {{ $sucursales->lastItem() }} a {{ $sucursales->total() }} registros</p>
+                            <p class="m-0 text-muted">Mostrando {{ $sucursales->firstItem() }} a
+                                {{ $sucursales->lastItem() }} de {{ $sucursales->total() }} registros</p>
                             <ul class="pagination m-0 ms-auto">
                                 @if ($sucursales->onFirstPage())
                                     <li class="page-item disabled">

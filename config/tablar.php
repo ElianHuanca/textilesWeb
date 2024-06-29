@@ -238,13 +238,13 @@ return [
             'active' => ['support3'],
             'submenu' => [
                 [
-                    'text' => 'Ventas',
-                    'url' => 'support3',
+                    'text' => 'Metas X Vendedor',
+                    'route' => 'graficas.metas',
                     'icon' => 'ti ti-chart-bar',
                 ],                            
                 [
-                    'text' => 'Compras',
-                    'url' => 'support3',
+                    'text' => 'Demanda De Telas',
+                    'route' => 'reportes.formdemandas',
                     'icon' => 'ti ti-chart-bar',
                 ]
             ],

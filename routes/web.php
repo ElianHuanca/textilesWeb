@@ -3,15 +3,16 @@
 use App\Http\Controllers\AlmacenesController;
 use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\GastosController;
+use App\Http\Controllers\GraficasController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\RecepcionesController;
+use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\SucursalesController;
 use App\Http\Controllers\TelasController;
 use App\Http\Controllers\TipoGastosController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentasController;
-use App\Models\Recepciones;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -61,3 +62,8 @@ Route::post('gastos', [GastosController::class, 'store'])->name('gastos.store');
 Route::get('recepciones',[RecepcionesController::class, 'index'])->name('recepciones.index');
 Route::get('recepciones/create/{idcompra}', [RecepcionesController::class, 'create'])->name('recepciones.create');
 Route::post('recepciones', [RecepcionesController::class, 'store'])->name('recepciones.store');
+
+Route::get('graficas', [GraficasController::class, 'metas'])->name('graficas.metas');	
+
+Route::get('reportes', [ReportesController::class, 'formdemandas'])->name('reportes.formdemandas');
+Route::post('reportes', [ReportesController::class, 'demandas'])->name('reportes.demandas');

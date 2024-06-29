@@ -1,38 +1,14 @@
-@extends('tablar::page')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-    <!-- Page header -->
-    <div class="page-header d-print-none">
-        <div class="container-xl">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <!-- Page pre-title -->
-                    <div class="page-pretitle">
-                        Overview
-                    </div>
-                    <h2 class="page-title">
-                        Telas
-                    </h2>
-                </div>
-                <!-- Page title actions -->
-                <div class="col-12 col-md-auto ms-auto d-print-none">
-                    <div class="btn-list">
-                        <a href="{{ route('telas.create') }}" class="btn btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <line x1="12" y1="5" x2="12" y2="19" />
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                            </svg>
-                            Nueva Tela
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Page body -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Demanda De Telas</title>
+</head>
+
+<body>
     <div class="page-body">
         <div class="container-xl">
             <div class="row row-deck row-cards">
@@ -51,8 +27,8 @@
                                             <!-- Icono de orden -->
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="icon icon-sm text-dark icon-thick" width="24" height="24"
-                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                                stroke-linecap="round" stroke-linejoin="round">
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
@@ -110,7 +86,8 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Mostrando {{ $telas->firstItem() }} a {{ $telas->lastItem() }} de
+                            <p class="m-0 text-muted">Mostrando {{ $telas->firstItem() }} a {{ $telas->lastItem() }}
+                                de
                                 {{ $telas->total() }} registros</p>
                             <ul class="pagination m-0 ms-auto">
                                 @if ($telas->onFirstPage())
@@ -146,4 +123,6 @@
             </div>
         </div>
     </div>
-@endsection
+</body>
+
+</html>

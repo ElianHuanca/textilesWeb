@@ -40,12 +40,12 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Lista De Proveedores</h3>
-                        </div>                        
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-vcenter table-nowrap">
                                 <thead>
                                     <tr>
-                                        <th class="text-muted">#</th>                                        
+                                        <th class="text-muted">#</th>
                                         <th class="text-muted">Nombre</th>
                                         <th class="text-muted">Acciones</th>
                                     </tr>
@@ -54,13 +54,13 @@
                                     @foreach ($proveedores as $proveedor)
                                         <tr>
                                             <td>{{ $proveedor->id }}</td>
-                                            <td>{{ $proveedor->nombre }}</td>                                            
-                                            <td>                                               
+                                            <td>{{ $proveedor->nombre }}</td>
+                                            <td>
                                                 <a href="{{ route('proveedores.edit', $proveedor) }}" title="Editar">
                                                     <i class="ti ti-edit"></i>
                                                 </a>
-                                                <form action="{{ route('proveedores.destroy', $proveedor->id) }}" method="POST"
-                                                    style="display:inline;">
+                                                <form action="{{ route('proveedores.destroy', $proveedor->id) }}"
+                                                    method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" title="Eliminar"
@@ -68,7 +68,7 @@
                                                         style="background:none; border:none; padding:0; margin:0; cursor:pointer;">
                                                         <i class="ti ti-trash" style="color: #0054a6"></i>
                                                     </button>
-                                                </form>                                                
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -76,8 +76,8 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Mostrando {{ $proveedores->firstItem() }} de
-                                {{ $proveedores->lastItem() }} a {{ $proveedores->total() }} registros</p>
+                            <p class="m-0 text-muted">Mostrando {{ $proveedores->firstItem() }} a
+                                {{ $proveedores->lastItem() }} de {{ $proveedores->total() }} registros</p>
                             <ul class="pagination m-0 ms-auto">
                                 @if ($proveedores->onFirstPage())
                                     <li class="page-item disabled">

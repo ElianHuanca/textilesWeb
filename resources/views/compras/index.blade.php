@@ -102,6 +102,38 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">Mostrando {{ $compras->firstItem() }} a {{ $compras->lastItem() }} de
+                                {{ $compras->total() }} registros</p>
+                            <ul class="pagination m-0 ms-auto">
+                                @if ($compras->onFirstPage())
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">‹</a>
+                                    </li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $compras->previousPageUrl() }}" tabindex="-1"
+                                            aria-disabled="true">‹</a>
+                                    </li>
+                                @endif
+
+                                @foreach ($compras->getUrlRange(1, $compras->lastPage()) as $page => $url)
+                                    <li class="page-item {{ $page == $compras->currentPage() ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    </li>
+                                @endforeach
+
+                                @if ($compras->hasMorePages())
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $compras->nextPageUrl() }}">›</a>
+                                    </li>
+                                @else
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">›</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

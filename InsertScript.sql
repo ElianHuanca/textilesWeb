@@ -53,9 +53,9 @@ EXECUTE FUNCTION insertar_en_telas2();
 /*INSERT INTO usuarios(name,email,password) VALUES 
 ('Isela Huanca','ise@gmail.com','$2a$10$qAVkPAIHnamNzbDeMb94t.em.plQpqP8s/Bwy.LrZsCOqnWveg7He'),
 ('Mary Choque','mary@gmail.com','$2a$10$pyLUOKvtKEgB2PUyvCT.VO0Sm/2Lf3Y9zroRBg2ET8L6t5ja1n0rS');*/
-insert into users(name,email,password) values
-('Isela Huanca','ise@gmail.com','$2a$10$qAVkPAIHnamNzbDeMb94t.em.plQpqP8s/Bwy.LrZsCOqnWveg7He'),
-('Mary Choque','mary@gmail.com','$2a$10$pyLUOKvtKEgB2PUyvCT.VO0Sm/2Lf3Y9zroRBg2ET8L6t5ja1n0rS');
+insert into users(name,email,password,metas) values
+('Isela Huanca','ise@gmail.com','$2a$10$qAVkPAIHnamNzbDeMb94t.em.plQpqP8s/Bwy.LrZsCOqnWveg7He',5000),
+('Mary Choque','mary@gmail.com','$2a$10$pyLUOKvtKEgB2PUyvCT.VO0Sm/2Lf3Y9zroRBg2ET8L6t5ja1n0rS',6000);
 
 INSERT INTO proveedores(nombre) values
 ('LIC'),
@@ -171,7 +171,12 @@ insert into ventas(fecha,total,ganancias,idsucursal,idusuario) values
 ('20-06-2024',330,110,1,1),
 ('21-06-2024',330,110,1,1),
 ('22-06-2024',330,110,1,1),
-('27-06-2024',3300,1100,2,2);
+('27-06-2024',3300,1100,2,2),
+('01-06-2024',1250,250,1,1),
+('08-06-2024',600,150,1,1),
+('01-06-2024',650,150,2,2),
+('08-06-2024',400,120,2,2),
+('15-06-2024',225,60,2,2);
 
 insert into det_ventas(idventa,idtela,precio,cantidad,total,ganancias) values
 (1,9,12,10,120,40),
@@ -217,4 +222,10 @@ insert into det_ventas(idventa,idtela,precio,cantidad,total,ganancias) values
 (21,9,12,15,180,60),
 (21,10,15,10,150,50),
 (22,9,12,150,1800,600),
-(22,10,15,100,1500,500);
+(22,10,15,100,1500,500),
+(23,1,25,50,1250,250),
+(24,2,20,30,600,150),
+(25,3,130,5,650,150),
+(26,5,100,4,400,120),
+(27,6,15,15,225,60);
+

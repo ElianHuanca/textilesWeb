@@ -62,7 +62,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label for="precioxcompra" class="form-label">Precio de Compra</label>
                                     <input id="precioxcompra" type="text" class="form-control @error('precioxcompra') is-invalid @enderror" name="precioxcompra" value="{{ old('precioxcompra') }}" required>
                                     @error('precioxcompra')
@@ -70,7 +70,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div class="mb-3">
                                     <label for="proveedor" class="form-label">Proveedores</label>
                                     <select id="proveedor" class="form-control @error('proveedor') is-invalid @enderror" name="idproveedor" required>

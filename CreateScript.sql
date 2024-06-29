@@ -10,6 +10,8 @@
 ALTER TABLE users 
 ADD COLUMN rol integer DEFAULT 1; --1:Gerente, 2: Vendedor, 3:Almacen
 
+alter table users 
+add column metas double precision default 0;
 
 CREATE TABLE IF NOT EXISTS proveedores(
 	id SERIAL PRIMARY KEY,
@@ -145,3 +147,5 @@ create table if not exists recepciones(
 	CONSTRAINT fk_almacen FOREIGN KEY (idalmacen) REFERENCES almacenes(id) ON DELETE CASCADE ON UPDATE RESTRICT,
 	CONSTRAINT fk_usuario FOREIGN KEY (idusuario) REFERENCES users(id) ON DELETE CASCADE ON UPDATE RESTRICT	
 );
+
+
