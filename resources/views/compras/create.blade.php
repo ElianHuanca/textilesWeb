@@ -112,7 +112,7 @@
                                     <thead>
                                         <tr>
                                             <th>Nombre Tela</th>
-                                            <th>Precio Venta</th>
+                                            <th>Precio Compra</th>
                                             <th>Cantidad</th>
                                             <th>Importe</th>
                                             <th>Acciones</th>

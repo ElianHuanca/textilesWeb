@@ -40,12 +40,12 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Lista De Tipo Gastos</h3>
-                        </div>                        
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-vcenter table-nowrap">
                                 <thead>
                                     <tr>
-                                        <th class="text-muted">#</th>                                        
+                                        <th class="text-muted">#</th>
                                         <th class="text-muted">Descripcion</th>
                                         <th class="text-muted">Acciones</th>
                                     </tr>
@@ -54,13 +54,13 @@
                                     @foreach ($tipogastos as $tipogasto)
                                         <tr>
                                             <td>{{ $tipogasto->id }}</td>
-                                            <td>{{ $tipogasto->descripcion }}</td>                                            
-                                            <td>                                               
+                                            <td>{{ $tipogasto->descripcion }}</td>
+                                            <td>
                                                 <a href="{{ route('tipogastos.edit', $tipogasto) }}" title="Editar">
                                                     <i class="ti ti-edit"></i>
                                                 </a>
-                                                <form action="{{ route('tipogastos.destroy', $tipogasto->id) }}" method="POST"
-                                                    style="display:inline;">
+                                                <form action="{{ route('tipogastos.destroy', $tipogasto->id) }}"
+                                                    method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" title="Eliminar"
@@ -68,7 +68,7 @@
                                                         style="background:none; border:none; padding:0; margin:0; cursor:pointer;">
                                                         <i class="ti ti-trash" style="color: #0054a6"></i>
                                                     </button>
-                                                </form>                                                
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -76,8 +76,8 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Mostrando {{ $tipogastos->firstItem() }} de
-                                {{ $tipogastos->lastItem() }} a {{ $tipogastos->total() }} registros</p>
+                            <p class="m-0 text-muted">Mostrando {{ $tipogastos->firstItem() }} a
+                                {{ $tipogastos->lastItem() }} de {{ $tipogastos->total() }} registros</p>
                             <ul class="pagination m-0 ms-auto">
                                 @if ($tipogastos->onFirstPage())
                                     <li class="page-item disabled">

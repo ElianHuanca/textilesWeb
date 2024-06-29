@@ -1,19 +1,19 @@
 @extends('tablar::page')
 
-@section('content')    
+@section('content')
     <div class="page-header d-print-none">
         <div class="container-xl">
             <div class="row g-2 align-items-center">
-                <div class="col">                    
+                <div class="col">
                     <div class="page-pretitle">
                         Overview
                     </div>
                     <h2 class="page-title">
                         Compras
                     </h2>
-                </div>                
+                </div>
                 <div class="col-12 col-md-auto ms-auto d-print-none">
-                    <a href="{{ route('compras.create') }}" class="btn btn-primary d-none d-sm-inline-block">                        
+                    <a href="{{ route('compras.create') }}" class="btn btn-primary d-none d-sm-inline-block">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
@@ -22,11 +22,11 @@
                             <line x1="5" y1="12" x2="19" y2="12" />
                         </svg>
                         Crear Nueva Compra
-                    </a>                    
+                    </a>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 
     <!-- Page body -->
     <div class="page-body">
@@ -52,8 +52,8 @@
                                         </th>
                                         <th>Fecha</th>
                                         <th>Total</th>
-                                        <th>TotalAG</th>   
-                                        <th>Proveedor</th>                                                                                                             
+                                        <th>Total Gastos</th>
+                                        <th>Proveedor</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -61,34 +61,38 @@
                                     @foreach ($compras as $compra)
                                         <tr>
                                             <td><span class="text-muted">{{ $compra->id }}</span></td>
-                                            <td>                                                
+                                            <td>
                                                 {{ $compra->fecha }}
                                             </td>
-                                            <td>                                                
+                                            <td>
                                                 {{ $compra->total }}
                                             </td>
-                                            <td>                                                
+                                            <td>
                                                 {{ $compra->totalag }}
                                             </td>
                                             <td>
                                                 {{ $compra->proveedor->nombre }}
                                             </td>
                                             <td>
-                                                {{ !$compra->gastos}}
-                                                <a href="{{ route('gastos.create', $compra->id) }}" title="adicionar gastos">
-                                                    <i class="ti ti-plus"></i>
-                                                </a>
-                                                
+                                                @if ($compra->totalag == 0 && !$compra->isRecepcionado())
+                                                    <a href="{{ route('gastos.create', $compra->id) }}"
+                                                        title="adicionar gastos">
+                                                        <i class="ti ti-plus"></i>
+                                                    </a>
+                                                @endif
                                                 <a href="{{ route('compras.show', $compra->id) }}" title="Ver">
                                                     <i class="ti ti-eye"></i>
                                                 </a>
                                                 <a href="{{ route('compras.edit', $compra) }}" title="Editar">
                                                     <i class="ti ti-edit"></i>
                                                 </a>
-                                                <form action="{{ route('compras.destroy', $compra->id) }}" method="POST" style="display:inline;">
+                                                <form action="{{ route('compras.destroy', $compra->id) }}" method="POST"
+                                                    style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este elemento?');" style="background:none; border:none; padding:0; margin:0; cursor:pointer;">
+                                                    <button type="submit" title="Eliminar"
+                                                        onclick="return confirm('¿Estás seguro de eliminar este elemento?');"
+                                                        style="background:none; border:none; padding:0; margin:0; cursor:pointer;">
                                                         <i class="ti ti-trash" style="color: #0054a6"></i>
                                                     </button>
                                                 </form>
@@ -97,6 +101,38 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">Mostrando {{ $compras->firstItem() }} a {{ $compras->lastItem() }} de
+                                {{ $compras->total() }} registros</p>
+                            <ul class="pagination m-0 ms-auto">
+                                @if ($compras->onFirstPage())
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">‹</a>
+                                    </li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $compras->previousPageUrl() }}" tabindex="-1"
+                                            aria-disabled="true">‹</a>
+                                    </li>
+                                @endif
+
+                                @foreach ($compras->getUrlRange(1, $compras->lastPage()) as $page => $url)
+                                    <li class="page-item {{ $page == $compras->currentPage() ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    </li>
+                                @endforeach
+
+                                @if ($compras->hasMorePages())
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $compras->nextPageUrl() }}">›</a>
+                                    </li>
+                                @else
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">›</a>
+                                    </li>
+                                @endif
+                            </ul>
                         </div>
                     </div>
                 </div>

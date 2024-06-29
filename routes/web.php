@@ -3,10 +3,13 @@
 use App\Http\Controllers\AlmacenesController;
 use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\GastosController;
+use App\Http\Controllers\GraficasController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\ReporEstadisController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RecepcionesController;
+use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\SucursalesController;
 use App\Http\Controllers\TelasController;
 use App\Http\Controllers\TipoGastosController;
@@ -44,3 +47,14 @@ Route::get('ganancias-telas-2', [ReporEstadisController::class, 'Ganancias_Telas
 Route::get('gastos/create/{idcompra}', [GastosController::class, 'create'])->name('gastos.create');
 
 
+Route::get('gastos/create/{idcompra}', [GastosController::class, 'create'])->name('gastos.create');
+Route::post('gastos', [GastosController::class, 'store'])->name('gastos.store');
+
+Route::get('recepciones',[RecepcionesController::class, 'index'])->name('recepciones.index');
+Route::get('recepciones/create/{idcompra}', [RecepcionesController::class, 'create'])->name('recepciones.create');
+Route::post('recepciones', [RecepcionesController::class, 'store'])->name('recepciones.store');
+
+Route::get('graficas', [GraficasController::class, 'metas'])->name('graficas.metas');	
+
+Route::get('reportes', [ReportesController::class, 'formdemandas'])->name('reportes.formdemandas');
+Route::post('reportes', [ReportesController::class, 'demandas'])->name('reportes.demandas');

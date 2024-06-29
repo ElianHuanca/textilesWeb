@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Almacenes;
+use App\Models\AlmacenesTelas;
 use App\Models\Proveedores;
+use App\Models\Sucursal;
+use App\Models\SucursalesTelas;
 use App\Models\Telas;
 use Illuminate\Http\Request;
 
@@ -49,7 +53,13 @@ class TelasController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tela = Telas::find($id);
+        $stockAlmacenes = AlmacenesTelas::where('idtela', $id)->sum('stock');
+        $stockSucursales = SucursalesTelas::where('idtela', $id)->sum('stock');
+        $tela->stock = $stockAlmacenes + $stockSucursales;
+        $alm = AlmacenesTelas::where('idtela', $id)->get();
+        $suc = SucursalesTelas::where('idtela', $id)->get();        
+        return view('telas.show', compact('tela', 'alm', 'suc'));
     }
 
     /**

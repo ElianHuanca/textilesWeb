@@ -99,8 +99,8 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Mostrando {{ $almacenes->firstItem() }} de
-                                {{ $almacenes->lastItem() }} a {{ $almacenes->total() }} registros</p>
+                            <p class="m-0 text-muted">Mostrando {{ $almacenes->firstItem() }} a
+                                {{ $almacenes->lastItem() }} de {{ $almacenes->total() }} registros</p>
                             <ul class="pagination m-0 ms-auto">
                                 @if ($almacenes->onFirstPage())
                                     <li class="page-item disabled">

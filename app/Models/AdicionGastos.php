@@ -8,8 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class AdicionGastos extends Model
 {
     use HasFactory;
-    protected $fillable = ['idcompra', 'idgastos', 'costo'];
 
+    protected $table = 'adiciongastos';
+
+    protected $fillable = ['idcompra', 'idgastos', 'costo'];
+    // Indicar que no hay una clave primaria incrementada
+    public $incrementing = false;
+
+    // Si no hay una columna 'id', indicar que no hay clave primaria
+    protected $primaryKey = null;
+    
     public $timestamps = false;
 
     public function compra()

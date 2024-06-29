@@ -194,6 +194,11 @@ return [
                     'icon' => 'ti ti-box',
                     
                 ],
+                [
+                    'text' => 'Recepcionar Compras',
+                    'url' => 'recepciones',
+                    'icon' => 'ti ti-box',
+                ]
             ],
         ],        
         [
@@ -268,6 +273,13 @@ return [
                 [
                     'text' => 'Gananacias  Telas 2',
                     'url' => 'ganancias-telas-2',
+                    'text' => 'Metas X Vendedor',
+                    'route' => 'graficas.metas',
+                    'icon' => 'ti ti-chart-bar',
+                ],                            
+                [
+                    'text' => 'Demanda De Telas',
+                    'route' => 'reportes.formdemandas',
                     'icon' => 'ti ti-chart-bar',
                 ]
             ],
