@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class TelaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:telas.index')->only(['index', 'show']);
+        $this->middleware('can:telas.create')->only(['create', 'store']);
+        $this->middleware('can:telas.edit')->only(['edit', 'update']);
+        $this->middleware('can:telas.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

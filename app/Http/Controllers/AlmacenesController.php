@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class AlmacenesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:almacenes.index')->only(['index', 'show']);
+        $this->middleware('can:almacenes.create')->only(['create', 'store']);
+        $this->middleware('can:almacenes.edit')->only(['edit', 'update']);
+        $this->middleware('can:almacenes.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

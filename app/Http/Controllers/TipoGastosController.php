@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class TipoGastosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:tipogastos.index')->only(['index', 'show']);
+        $this->middleware('can:tipogastos.create')->only(['create', 'store']);
+        $this->middleware('can:tipogastos.edit')->only(['edit', 'update']);
+        $this->middleware('can:tipogastos.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

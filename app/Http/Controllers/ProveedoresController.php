@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class ProveedoresController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:proveedores.index')->only(['index', 'show']);
+        $this->middleware('can:proveedores.create')->only(['create', 'store']);
+        $this->middleware('can:proveedores.edit')->only(['edit', 'update']);
+        $this->middleware('can:proveedores.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $proveedores = Proveedores::where('estado', true)->orderby('id','asc')->paginate(10);

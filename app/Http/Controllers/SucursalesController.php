@@ -8,6 +8,14 @@ use PhpParser\Node\Expr\Cast\String_;
 
 class SucursalesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:sucursales.index')->only(['index', 'show']);
+        $this->middleware('can:sucursales.create')->only(['create', 'store']);
+        $this->middleware('can:sucursales.edit')->only(['edit', 'update']);
+        $this->middleware('can:sucursales.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

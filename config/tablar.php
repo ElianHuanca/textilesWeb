@@ -154,11 +154,18 @@ return [
             'url' => '#',
             'icon' => 'ti ti-clipboard',            
             'active' => ['support1'],
+            'can' => 'users.index',
             'submenu' => [
                 [
                     'text' => 'Gestionar Usuarios',
                     'route' => 'users.index',
                     'icon' => 'ti ti-users',
+                    'can' => 'users.index'
+                ],
+                [
+                    'text' => 'Roles y Permisos',
+                    'route' => 'roles.index',
+                    'icon' => 'ti ti-settings',
                 ],
             ]
         ],   
@@ -167,21 +174,25 @@ return [
             'url' => '#',
             'icon' => 'ti ti-box',            
             'active' => ['support1'],
+            'can' => 'almacenes.index',
             'submenu' => [
                 [
                     'text' => 'Gestionar Almacenes',
                     'route' => 'almacenes.index',
                     'icon' => 'ti ti-box',
+                    'can' => 'almacenes.index',
                 ],
                 [
                     'text' => 'Gestionar Telas',
                     'url' => 'telas',
                     'icon' => 'ti ti-box',
+                    'can' => 'telas.index',
                 ],
                 [
                     'text' => 'Gestionar Traspasos',
-                    'url' => 'support1',
+                    'url' => 'traspasos',
                     'icon' => 'ti ti-box',
+                    
                 ],
             ],
         ],        
@@ -190,21 +201,25 @@ return [
             'url' => '#',
             'icon' => 'ti ti-truck',
             'active' => ['support2'],
+            'can' => 'compras.index',
             'submenu' => [
                 [
                     'text' => 'Gestionar Compras',
                     'url' => 'compras',
                     'icon' => 'ti ti-truck',
+                    'can' => 'compras.index',
                 ],
                 [
                     'text' => 'Gestionar Proveedores',
                     'url' => 'proveedores',
                     'icon' => 'ti ti-truck',
+                    'can' => 'proveedores.index',
                 ],
                 [
                     'text' => 'Gestionar Tipos Gastos',
                     'url' => 'tipogastos',
                     'icon' => 'ti ti-truck',
+                    'can' => 'tipogastos.index',
                 ],                
             ],
         ],
@@ -213,16 +228,19 @@ return [
             'url' => '#',
             'icon' => 'ti ti-shopping-cart',
             'active' => ['support3'],
+            'can' => 'ventas.index', // 'ventas.index
             'submenu' => [
                 [
                     'text' => 'Gestionar Sucursales',
                     'url' => 'sucursales',
                     'icon' => 'ti ti-shopping-cart',
+                    'can' => 'sucursales.index',
                 ],
                 [
                     'text' => 'Gestionar Ventas',
                     'url' => 'ventas',
                     'icon' => 'ti ti-shopping-cart',
+                    'can' => 'ventas.index',
                 ],                
             ],
         ],
@@ -230,16 +248,26 @@ return [
             'text' => 'Reportes Y Estadisticas',
             'url' => '#',
             'icon' => 'ti ti-chart-bar',
-            'active' => ['support3'],
+            'active' => ['support4'],
             'submenu' => [
                 [
-                    'text' => 'Ventas',
-                    'url' => 'support3',
+                    'text' => 'Ganancias Sucursal',
+                    'url' => 'ganancias-sucusal',
                     'icon' => 'ti ti-chart-bar',
                 ],                            
                 [
-                    'text' => 'Compras',
-                    'url' => 'support3',
+                    'text' => 'Gananacias Sucursal Telas',
+                    'url' => 'ganancias-sucusal-tela',
+                    'icon' => 'ti ti-chart-bar',
+                ],
+                [
+                    'text' => 'Gananacias  Telas',
+                    'url' => 'ganancias-telas',
+                    'icon' => 'ti ti-chart-bar',
+                ],
+                [
+                    'text' => 'Gananacias  Telas 2',
+                    'url' => 'ganancias-telas-2',
                     'icon' => 'ti ti-chart-bar',
                 ]
             ],

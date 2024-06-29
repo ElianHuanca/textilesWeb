@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\DB;
 
 class VentasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:ventas.index')->only(['index', 'show']);
+        $this->middleware('can:ventas.create')->only(['create', 'store']);
+        $this->middleware('can:ventas.edit')->only(['edit', 'update']);
+        $this->middleware('can:ventas.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

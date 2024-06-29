@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:users.index')->only(['index', 'show']);
+        $this->middleware('can:users.create')->only(['create', 'store']);
+        $this->middleware('can:users.edit')->only(['edit', 'update']);
+        $this->middleware('can:users.destroy')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,8 +46,11 @@ class UserController extends Controller
     }
     public function create()
     {
-        // Retornar la vista 'usuario.create'
-        return view('usuario.register');
+        // Obtener todos los roles disponibles
+        $roles = Role::all();
+
+        // Retornar la vista de creación con los roles
+        return view('usuario.register', compact('roles'));
     }
     public function store(Request $request)
     {
@@ -45,18 +58,23 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed',
+            'roles' => 'required|exists:roles,id',
         ]);
-    
+
         // Crear un nuevo usuario
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
         ]);
-    
+
+        // Asignar el rol al usuario
+        $role = Role::findById($validatedData['roles'], 'web');
+        $user->assignRole($role);
+
         // Retornar una respuesta de éxito y redirigir a la vista de usuarios
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Usuario registrado correctamente.');
     }    
 
     /**
@@ -68,28 +86,39 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // Retornar la vista 'usuario.edit' y pasar los datos del usuario a la vista
-        return view('usuario.edit', compact('user'));
+        $roles = Role::all();
+        return view('usuario.edit', compact('user', 'roles'));
     }
+
     public function update(Request $request, User $user)
     {
         // Validar los datos de entrada para la actualización
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'required|string|min:8',
+            'roles' => 'required|exists:roles,id',
         ]);
 
         // Actualizar los datos del usuario
         $user->update([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),
         ]);
 
+        // Buscar el rol por ID
+        $role = Role::findById($validatedData['roles'], 'web');
+
+        if (!$role) {
+            return redirect()->back()->withErrors(['roles' => 'El rol seleccionado no existe.'])->withInput();
+        }
+
+        // Asignar el rol al usuario
+        $user->syncRoles([$role]);
+
         // Retornar una respuesta de éxito con el usuario actualizado
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente.');
     }
+    
 
     /**
      * Remove the specified resource from storage.
