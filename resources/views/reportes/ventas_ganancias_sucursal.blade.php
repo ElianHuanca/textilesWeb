@@ -17,31 +17,40 @@
     document.addEventListener('DOMContentLoaded', function () {
         Highcharts.chart('container', {
             chart: {
-                type: 'pie'
+                type: 'column'
             },
             title: {
-                text: 'Ganancia Total en Ventas por Tela 2'
+                text: 'Total y Ganancias de Ventas por Sucursal',
+                align: 'left'
+            },
+            xAxis: {
+                categories: {!! json_encode($sucursales) !!},
+                crosshair: true,
+                accessibility: {
+                    description: 'Sucursales'
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Cantidad y Ganancias'
+                }
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.y}</b>',
+                shared: true
             },
             plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                        }
-                    }
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
                 }
             },
             series: [{
-                name: 'Ganancias',
-                colorByPoint: true,
-                data: {!! $jsonData !!}
+                name: 'Total Ventas',
+                data: {!! json_encode($importes) !!}
+            }, {
+                name: 'Total Ganancias',
+                data: {!! json_encode($ganancias) !!}
             }]
         });
     });

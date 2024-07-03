@@ -42,7 +42,8 @@ Route::resource('roles', RoleController::class)->names('roles');
 Route::get('ganancias-sucusal', [ReporEstadisController::class ,'Ganancias_Sucursal']);
 Route::get('ganancias-sucusal-tela', [ReporEstadisController::class, 'Ganancias_Sucursal_Telas']);
 Route::get('ganancias-telas', [ReporEstadisController::class, 'Ganancias_Telas']);
-Route::get('ganancias-telas-2', [ReporEstadisController::class, 'Ganancias_Telas_2']);
+Route::get('ventas-ganancias-sucursal', [ReporEstadisController::class, 'ventas_ganancias_sucursal']);
+Route::get('ventas-ganancias-telas', [ReporEstadisController::class, 'ventas_ganancias_telas']);
 
 Route::get('gastos/create/{idcompra}', [GastosController::class, 'create'])->name('gastos.create');
 

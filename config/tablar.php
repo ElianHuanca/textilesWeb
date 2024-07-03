@@ -269,14 +269,17 @@ return [
                     'text' => 'Gananacias  Telas',
                     'url' => 'ganancias-telas',
                     'icon' => 'ti ti-chart-bar',
-                ],
+                ],       
                 [
-                    'text' => 'Gananacias  Telas 2',
-                    'url' => 'ganancias-telas-2',
-                    'text' => 'Metas X Vendedor',
-                    'route' => 'graficas.metas',
+                    'text' => 'Ganancias Ventas Sucursal',
+                    'url' => 'ventas-ganancias-sucursal',
                     'icon' => 'ti ti-chart-bar',
-                ],                            
+                ],       
+                [
+                    'text' => 'Ganancias Ventas Telas',
+                    'url' => 'ventas-ganancias-telas',
+                    'icon' => 'ti ti-chart-bar',
+                ],                
                 [
                     'text' => 'Demanda De Telas',
                     'route' => 'reportes.formdemandas',
