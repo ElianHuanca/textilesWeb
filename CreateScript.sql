@@ -7,8 +7,8 @@
 	estado boolean default true
 );*/
 
-ALTER TABLE users 
-ADD COLUMN rol integer DEFAULT 1; --1:Gerente, 2: Vendedor, 3:Almacen
+--ALTER TABLE users 
+--ADD COLUMN rol integer DEFAULT 1; --1:Gerente, 2: Vendedor, 3:Almacen
 
 alter table users 
 add column metas double precision default 0;

@@ -53,9 +53,13 @@ EXECUTE FUNCTION insertar_en_telas2();
 /*INSERT INTO usuarios(name,email,password) VALUES 
 ('Isela Huanca','ise@gmail.com','$2a$10$qAVkPAIHnamNzbDeMb94t.em.plQpqP8s/Bwy.LrZsCOqnWveg7He'),
 ('Mary Choque','mary@gmail.com','$2a$10$pyLUOKvtKEgB2PUyvCT.VO0Sm/2Lf3Y9zroRBg2ET8L6t5ja1n0rS');*/
-insert into users(name,email,password,metas) values
-('Isela Huanca','ise@gmail.com','$2a$10$qAVkPAIHnamNzbDeMb94t.em.plQpqP8s/Bwy.LrZsCOqnWveg7He',5000),
-('Mary Choque','mary@gmail.com','$2a$10$pyLUOKvtKEgB2PUyvCT.VO0Sm/2Lf3Y9zroRBg2ET8L6t5ja1n0rS',6000);
+UPDATE users
+SET metas=5000
+WHERE id = 1;
+
+UPDATE users
+SET metas=3500
+WHERE id = 2;
 
 INSERT INTO proveedores(nombre) values
 ('LIC'),
@@ -63,7 +67,7 @@ INSERT INTO proveedores(nombre) values
 ('ASATEX');
 
 INSERT INTO sucursales(direccion,zona,celular) VALUES 
-('Local D4-E4 Shopping Miami','Feria Barrio Lindo','76627246'),
+--('Local D4-E4 Shopping Miami','Feria Barrio Lindo','76627246'),
 ('Local F3-F4 Shopping Miami','Feria Barrio Lindo','73143557'),
 ('C/Parabano #315','Comercial Ramada','72170941');
 
@@ -109,8 +113,8 @@ INSERT INTO telas(nombre, precioxmen, precioxmay, precioxrollo,idproveedor) VALU
 ('Tull Ramas',65,55,50, 1),
 ('Blonda 15',15,12,10,1),
 ('Blonda 20',20,15,12, 1),
-('Blonda 50',50,45,43, 1),
-('Tull Ilusion',10,8,6,3),
+('Blonda 50',50,45,43, 1);
+/*('Tull Ilusion',10,8,6,3),
 ('Tull Licra',20,16,15,3),
 ('Tull Frances',25,20,18,2),
 ('Can Can',20,17,14,2),
@@ -123,7 +127,7 @@ INSERT INTO telas(nombre, precioxmen, precioxmay, precioxrollo,idproveedor) VALU
 ('Lipiur IH',130,100,85,3),
 ('Lipiur Blonda',60,50,45,3),
 ('gasa',15,12,10,3),
-('Tull Ramas Ramada', 65,55,50,3);
+('Tull Ramas Ramada', 65,55,50,3);]*/
 
  INSERT INTO tipogastos(descripcion) VALUES
  ('Transporte Terrestre'),
@@ -172,10 +176,10 @@ insert into ventas(fecha,total,ganancias,idsucursal,idusuario) values
 ('21-06-2024',330,110,1,1),
 ('22-06-2024',330,110,1,1),
 ('27-06-2024',3300,1100,2,2),
-('01-06-2024',1250,250,1,1),
-('08-06-2024',600,150,1,1),
-('01-06-2024',650,150,2,2),
-('08-06-2024',400,120,2,2),
+('01-07-2024',1250,250,1,1),
+('08-07-2024',600,150,1,1),
+('01-07-2024',650,150,2,2),
+('08-07-2024',400,120,2,2),
 ('15-06-2024',225,60,2,2);
 
 insert into det_ventas(idventa,idtela,precio,cantidad,total,ganancias) values
@@ -229,3 +233,34 @@ insert into det_ventas(idventa,idtela,precio,cantidad,total,ganancias) values
 (26,5,100,4,400,120),
 (27,6,15,15,225,60);
 
+
+SELECT 
+    telas_sucursales.idtela, 
+    t.nombre as tela, 
+    telas_sucursales.idsucursal, 
+    s.direccion as sucursal, 
+    COALESCE(SUM(dv.cantidad), 0) as demanda
+FROM 
+    (SELECT 
+        t.id as idtela, 
+        s.id as idsucursal 
+    FROM 
+        telas t, 
+        sucursales s) telas_sucursales
+LEFT JOIN ventas v ON v.idsucursal = telas_sucursales.idsucursal 
+                    AND v.fecha BETWEEN '01-06-2024' AND '30-07-2024'
+LEFT JOIN det_ventas dv ON dv.idventa = v.id 
+                         AND dv.idtela = telas_sucursales.idtela
+LEFT JOIN sucursales s ON s.id = telas_sucursales.idsucursal
+LEFT JOIN telas t ON t.id = telas_sucursales.idtela
+GROUP BY 
+    telas_sucursales.idtela, 
+    t.nombre, 
+    telas_sucursales.idsucursal, 
+    s.direccion
+ORDER BY 
+    telas_sucursales.idtela, 
+    telas_sucursales.idsucursal;     
+
+
+    

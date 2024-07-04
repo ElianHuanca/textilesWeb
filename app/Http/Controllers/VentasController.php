@@ -91,6 +91,8 @@ class VentasController extends Controller
             SucursalesTelas::where('idsucursal', $venta->idsucursal)
                 ->where('idtela', $tela['idTela'])
                 ->decrement('stock', $tela['cantidad']);
+
+            //Si tu venta es menor o igual al rop, que notifique al gerente
         }
         return redirect()->route('ventas.index');
     }

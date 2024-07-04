@@ -254,29 +254,14 @@ return [
             'url' => '#',
             'icon' => 'ti ti-chart-bar',
             'active' => ['support4'],
-            'submenu' => [
+            'submenu' => [                       
                 [
-                    'text' => 'Ganancias Sucursal',
-                    'url' => 'ganancias-sucusal',
-                    'icon' => 'ti ti-chart-bar',
-                ],                            
-                [
-                    'text' => 'Gananacias Sucursal Telas',
-                    'url' => 'ganancias-sucusal-tela',
-                    'icon' => 'ti ti-chart-bar',
-                ],
-                [
-                    'text' => 'Gananacias  Telas',
-                    'url' => 'ganancias-telas',
-                    'icon' => 'ti ti-chart-bar',
-                ],       
-                [
-                    'text' => 'Ganancias Ventas Sucursal',
+                    'text' => 'Ventas Por Sucursales',
                     'url' => 'ventas-ganancias-sucursal',
                     'icon' => 'ti ti-chart-bar',
                 ],       
                 [
-                    'text' => 'Ganancias Ventas Telas',
+                    'text' => 'Ventas Por Telas',
                     'url' => 'ventas-ganancias-telas',
                     'icon' => 'ti ti-chart-bar',
                 ],                
@@ -284,7 +269,12 @@ return [
                     'text' => 'Demanda De Telas',
                     'route' => 'reportes.formdemandas',
                     'icon' => 'ti ti-chart-bar',
-                ]
+                ],
+                [
+                    'text' => 'Metas Por Vendedor',
+                    'route' => 'graficas.metas',
+                    'icon' => 'ti ti-chart-bar',
+                ],
             ],
         ],
     ],
