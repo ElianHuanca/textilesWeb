@@ -11,7 +11,7 @@
     <div class="row row-deck row-cards">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">Demanda De Telas Del {{ date('d/m/Y', strtotime($request->fechaini)) }} Al {{ date('d/m/Y', strtotime($request->fechafin)) }}</h3>
                     <button id="download-pdf" class="btn btn-primary float-right">Descargar Tabla en PDF</button>
                 </div>
