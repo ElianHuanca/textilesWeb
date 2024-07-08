@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\AlmacenesTelas;
 use App\Models\DetVentas;
 use App\Models\Sucursales;
 use App\Models\SucursalesTelas;
+use App\Models\Telas;
 use App\Models\Ventas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +67,8 @@ class VentasController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
+        session()->forget('data');
         $venta = new Ventas();
         $venta->fecha = $request->fecha;
         $venta->total = $request->total;
@@ -92,9 +95,32 @@ class VentasController extends Controller
                 ->where('idtela', $tela['idTela'])
                 ->decrement('stock', $tela['cantidad']);
 
-            //Si tu venta es menor o igual al rop, que notifique al gerente
+            //Si tu stock es menor o igual al rop, que notifique al gerente
+            $this->notificarGerente($request,$tela['idTela']);
+            
         }
         return redirect()->route('ventas.index');
+    }
+
+    private function notificarGerente($request,$idtela)
+    {
+        $tela = Telas::findOrFail($idtela);
+        $stockAlmacenes = AlmacenesTelas::where('idtela', $tela->id)->sum('stock');
+        $tockSucursales = SucursalesTelas::where('idtela', $tela->id)->sum('stock');
+        $stockTotal = $stockAlmacenes + $tockSucursales;
+        if($tela->rop >= $stockTotal){            
+            // Crear la nueva notificación
+            $data = [
+                'idtela' => $tela->id,
+                'nombre' => $tela->nombre,
+                'stock' => "{$stockTotal}",
+                'rop' => $tela->rop
+            ];            
+    
+            // Guardar la lista de notificaciones en la sesión
+            //$request->session()->put('data', $data);            
+            session()->push('data', $data);
+        }
     }
 
     /**
@@ -104,6 +130,7 @@ class VentasController extends Controller
     {
         $venta = Ventas::findOrFail($id);
         $detventas = DetVentas::where('idventa', $id)->get();
+        
         return view('ventas.show', compact('venta', 'detventas'));
     }
 

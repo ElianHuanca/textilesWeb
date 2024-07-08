@@ -44,9 +44,7 @@
                         <div class="table-responsive">
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
-                                    <tr>
-                                        {{-- <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select all telas"></th> --}}
+                                    <tr>                                        
                                         <th class="w-1">#
                                             <!-- Icono de orden -->
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -141,6 +139,92 @@
                                 @endif
                             </ul>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-deck row-cards">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Telas Que Se Necesita Reabastecer El Stock</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table card-table table-vcenter text-nowrap datatable">
+                                <thead>
+                                    <tr>                                        
+                                        <th class="w-1">#
+                                            <!-- Icono de orden -->
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-sm text-dark icon-thick" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <polyline points="6 15 12 9 18 15" />
+                                            </svg>
+                                        </th>
+                                        <th>Nombre</th>
+                                        <th>Stock Total</th>
+                                        <th>ROP</th>
+                                        <th>Stock De Seguridad</th>                                        
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($telas2 as $tela)
+                                        <tr>
+                                            <td>{{ $tela->id }}</td>
+                                            <td>{{ $tela->nombre }}</td>
+                                            <td>{{ $tela->stock }}</td>
+                                            <td>{{ $tela->rop }}</td>
+                                            <td>{{ $tela->seguridad }}</td>                                                                                        
+                                            <td>
+                                                <a href="{{ route('telas.show', $tela->id) }}" title="Ver">
+                                                    <i class="ti ti-eye"></i>
+                                                </a>                                                
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        {{-- <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">Mostrando {{ $telas->firstItem() }} a {{ $telas->lastItem() }} de
+                                {{ $telas->total() }} registros</p>
+                            <ul class="pagination m-0 ms-auto">
+                                @if ($telas->onFirstPage())
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">‹</a>
+                                    </li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $telas->previousPageUrl() }}" tabindex="-1"
+                                            aria-disabled="true">‹</a>
+                                    </li>
+                                @endif
+
+                                @foreach ($telas->getUrlRange(1, $telas->lastPage()) as $page => $url)
+                                    <li class="page-item {{ $page == $telas->currentPage() ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    </li>
+                                @endforeach
+
+                                @if ($telas->hasMorePages())
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $telas->nextPageUrl() }}">›</a>
+                                    </li>
+                                @else
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">›</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div> --}}
                     </div>
                 </div>
             </div>

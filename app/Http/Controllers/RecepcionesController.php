@@ -24,7 +24,10 @@ class RecepcionesController extends Controller
             ->whereNull('recepciones.idcompra')
             ->select('compras.*')
             ->get();
-        return view('recepciones.index', compact('comprasnr'));
+        $comprasr = Compras::join('recepciones', 'compras.id', '=', 'recepciones.idcompra')
+            ->select('compras.*')
+            ->get();
+        return view('recepciones.index', compact('comprasnr', 'comprasr'));
     }
 
     public function create($idcompra)
@@ -81,14 +84,12 @@ class RecepcionesController extends Controller
         })->oldest('fecha')->first()->fecha);        
         $intervalo = $fechaUltimaVenta->diff($fechaPrimeraVenta);
         $periodo = $intervalo->days; 
-        if ($periodo == 0) {
-            $periodo = 1;
-        }else{
-            $periodo = $periodo * 0.857143; // aqui se le corta al periodo porque no se atiende los domingos
-        }
+        
+        $periodo = $periodo * 0.857143; // aqui se le corta al periodo porque no se atiende los domingos        
 
-        //Calcular la demanda promedio de la tela
+        //Calcular la demanda histórica de la tela
         $historialDeDemanda = DetVentas::where('idtela', $detcompra->idtela)->sum('cantidad');
+
         //Calcular la demanda promedio de la tela
         $demandaPromedio = $historialDeDemanda / $periodo;
         
@@ -128,5 +129,12 @@ class RecepcionesController extends Controller
         // Actualizar el costo unitario promedio ponderado en la base de datos
         $tela->precioxcompra = $costoUnitarioPromedioPonderado;
         $tela->save();
+    }
+
+    public function show($id){
+        $compra = Compras::find($id);
+        $recepcion = Recepciones::where('idcompra', $id)->first();
+        $detcompras = DetCompras::where('idcompra', $id)->get();
+        return view('recepciones.show', compact('compra', 'recepcion', 'detcompras'));
     }
 }

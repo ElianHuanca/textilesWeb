@@ -10,6 +10,7 @@ use App\Models\Sucursal;
 use App\Models\SucursalesTelas;
 use App\Models\Telas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class TelasController extends Controller
 {
@@ -26,8 +27,19 @@ class TelasController extends Controller
      */
     public function index()
     {
-        $telas = Telas::where('estado',true)->orderby('id', 'asc')->paginate(10);
-        return view('telas.index', compact('telas'));
+        $telas = Telas::where('estado',true)->where('rop','>',0)->orderby('id', 'asc')->get();
+
+        $telasFiltradas = $telas->filter(function ($tela) {
+            $stockAlmacenes = AlmacenesTelas::where('idtela', $tela->id)->sum('stock');
+            $stockSucursales = SucursalesTelas::where('idtela', $tela->id)->sum('stock');
+            $stockTotal = $stockAlmacenes + $stockSucursales;
+            $tela->stock = $stockTotal;
+            return $tela->rop >= $stockTotal;
+        });        
+        // Si necesitas una colección en lugar de un array
+        $telas2 = $telasFiltradas->values();
+        $telas = Telas::where('estado',true)->orderby('id', 'asc')->paginate(10);        
+        return view('telas.index', compact('telas','telas2'));
     }
 
     /**
@@ -53,12 +65,16 @@ class TelasController extends Controller
      */
     public function show(string $id)
     {
+        session()->forget('data');
         $tela = Telas::find($id);
         $stockAlmacenes = AlmacenesTelas::where('idtela', $id)->sum('stock');
         $stockSucursales = SucursalesTelas::where('idtela', $id)->sum('stock');
         $tela->stock = $stockAlmacenes + $stockSucursales;
         $alm = AlmacenesTelas::where('idtela', $id)->get();
         $suc = SucursalesTelas::where('idtela', $id)->get();        
+        $url = 'http://localhost:8080/api/notificaciones/';
+        //$url = 'https://notificaciones-serve.onrender.com/api/notificaciones/';
+        Http::delete($url . $id);
         return view('telas.show', compact('tela', 'alm', 'suc'));
     }
 

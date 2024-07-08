@@ -190,7 +190,7 @@ return [
                 ],
                 [
                     'text' => 'Gestionar Traspasos',
-                    'url' => 'traspasos',
+                    'route' => 'traspasos.create',
                     'icon' => 'ti ti-box',
                     
                 ],

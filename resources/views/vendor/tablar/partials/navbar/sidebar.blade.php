@@ -20,7 +20,7 @@
             </div>
             <div class="d-none d-lg-flex">
                 @include('tablar::partials.header.theme-mode')
-                @include('tablar::partials.header.notifications')
+                {{-- @include('tablar::partials.header.notifications') --}}
             </div>
             @include('tablar::partials.header.top-right')
         </div>

@@ -141,4 +141,20 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.js"
+        integrity="sha512-vGcPDqyonHb0c11UofnOKdSAt5zYRpKI4ow+v6hat4i96b7nHSn8PQyk0sT5L9RECyksp+SztCPP6bqeeGaRKg=="
+        crossorigin="anonymous"></script>
+
+    <script>
+        const data = {!! json_encode(session('data')) !!};
+        // Conexión con el socket server
+        const socket2 = io('http://localhost:8080');
+        //const socket = io('https://notificaciones-serve.onrender.com');
+
+        if (data) {
+            console.log(data);
+            socket2.emit('notification_user', data);
+        }
+    </script>
 @endsection

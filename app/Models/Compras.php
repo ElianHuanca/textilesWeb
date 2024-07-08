@@ -25,7 +25,8 @@ class Compras extends Model
 
     public function recepcion()
     {
-        return $this->hasMany(Recepciones::class, 'idcompra');
+        //return $this->hasMany(Recepciones::class, 'idcompra');
+        return $this->hasOne(Recepciones::class, 'idcompra');
     }
 
     public function gastos(){

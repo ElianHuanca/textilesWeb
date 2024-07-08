@@ -9,7 +9,7 @@
     <div class="navbar-nav flex-row order-md-last">
         <div class="d-none d-md-flex">
             @include('tablar::partials.header.theme-mode')
-            @include('tablar::partials.header.notifications')
+            {{-- @include('tablar::partials.header.notifications') --}}
         </div>
         @include('tablar::partials.header.top-right')
     </div>
