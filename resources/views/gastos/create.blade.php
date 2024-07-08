@@ -203,7 +203,7 @@
                     const celdas = fila.querySelectorAll('td');
                     const importe = celdas[4].textContent;
                     const porcentaje = importe / total;    
-                    celdas[5].textContent = porcentaje;                                    
+                    celdas[5].textContent = porcentaje.toFixed(2);                                    
                 }
             }
 
@@ -215,7 +215,7 @@
                     const celdas = fila.querySelectorAll('td');
                     const porcentaje = celdas[5].textContent;
                     const importe = totalag * porcentaje;
-                    celdas[6].textContent = importe;
+                    celdas[6].textContent = importe.toFixed(2);
                     telasArray.push({
                         idtela: celdas[0].textContent,
                         totalag:importe

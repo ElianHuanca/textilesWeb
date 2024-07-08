@@ -70,7 +70,7 @@
                                                 {{ $venta->total }}
                                             </td>
                                             <td>
-                                                {{ $venta->ganancias }}
+                                                {{ number_format($venta->ganancias,2) }}
                                             </td>
                                             <td>
                                                 {{ $venta->descuento }}

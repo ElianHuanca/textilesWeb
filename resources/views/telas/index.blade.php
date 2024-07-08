@@ -72,7 +72,7 @@
                                             <td>{{ $tela->precioxmen }}</td>
                                             <td>{{ $tela->precioxmay }}</td>
                                             <td>{{ $tela->precioxrollo }}</td>
-                                            <td>{{ $tela->precioxcompra }}</td>
+                                            <td>{{ number_format($tela->precioxcompra, 2) }}</td>
                                             {{-- <td>{{ $tela->rop }}</td> --}}
                                             {{-- <td>{{ $tela->stockseguridad }}</td> --}}
                                             <td>{{ $tela->proveedor->nombre }}</td>

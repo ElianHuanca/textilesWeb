@@ -30,7 +30,7 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="fechac" class="form-label">fecha compra</label>
-                                        <input id="fechac" type="text" class="form-control" name="fechac"
+                                        <input id="fechac" type="date" class="form-control" name="fechac"
                                             value="{{ $compra->fecha }}" readonly>
                                     </div>
                                     <div class="col-md-6 mb-3">

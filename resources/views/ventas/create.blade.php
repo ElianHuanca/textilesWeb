@@ -344,7 +344,7 @@
                             option.value = tela.id;
                             option.textContent = tela.nombre;
                             option.setAttribute('data-stock', tela.stock);
-                            option.setAttribute('data-precio', tela.precioxcompra);
+                            option.setAttribute('data-precio', parseFloat(tela.precioxcompra).toFixed(2));
                             option.setAttribute('data-nombre', tela.nombre);
                             option.setAttribute('data-id', tela.id);
                             telaSelect.appendChild(option);

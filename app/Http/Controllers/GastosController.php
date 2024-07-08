@@ -13,17 +13,10 @@ class GastosController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('can:gastos.index')->only(['index', 'show']);
-        $this->middleware('can:gastos.create')->only(['create', 'store']);
-        $this->middleware('can:gastos.edit')->only(['edit', 'update']);
-        $this->middleware('can:gastos.destroy')->only('destroy');
+        $this->middleware('auth');        
+        $this->middleware('can:gastos.create')->only(['create', 'store']);        
     }
-
-    public function index()
-    {
-        return view('gastos.index');
-    }
+    
 
     public function create($idcompra){        
         $compra = Compras::find($idcompra);
