@@ -13,6 +13,9 @@
 alter table users 
 add column metas double precision default 0;
 
+/*alter table users 
+add column token text;*/
+
 CREATE TABLE IF NOT EXISTS proveedores(
 	id SERIAL PRIMARY KEY,
 	nombre VARCHAR(100),
