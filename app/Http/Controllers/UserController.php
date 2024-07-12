@@ -26,7 +26,7 @@ class UserController extends Controller
     public function index()
     {
         // Obtener todos los usuarios
-        $users = User::orderBy('id', 'asc')->paginate(5);
+        $users = User::where('estado',true)->orderBy('id', 'asc')->paginate(5);
         // Retornar la vista 'usuario.index' y pasar los datos de los usuarios a la vista
         return view('usuario.index', compact('users'));
     }
@@ -129,7 +129,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         // Eliminar el usuario
-        $user->delete();
+        //$user->delete();
+        $user->estado = false;
+        $user->save();
 
         // Retornar una respuesta de éxito
         return redirect()->route('users.index');

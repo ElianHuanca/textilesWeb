@@ -12,7 +12,7 @@ class GraficasController extends Controller
 {
     public function metas()
     {
-        $usuarios = User::where('metas', '>', 0)->get();
+        $usuarios = User::where('estado',true)->where('metas', '>', 0)->get();
         $currentDate = Carbon::now();
 
         // Calcular las fechas de las semanas

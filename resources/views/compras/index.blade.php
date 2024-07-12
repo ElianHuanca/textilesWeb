@@ -83,7 +83,7 @@
                                                 <a href="{{ route('compras.show', $compra->id) }}" title="Ver">
                                                     <i class="ti ti-eye"></i>
                                                 </a>
-                                                <a href="{{ route('compras.edit', $compra) }}" title="Editar">
+                                                {{-- <a href="{{ route('compras.edit', $compra) }}" title="Editar">
                                                     <i class="ti ti-edit"></i>
                                                 </a>
                                                 <form action="{{ route('compras.destroy', $compra->id) }}" method="POST"
@@ -95,7 +95,7 @@
                                                         style="background:none; border:none; padding:0; margin:0; cursor:pointer;">
                                                         <i class="ti ti-trash" style="color: #0054a6"></i>
                                                     </button>
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach

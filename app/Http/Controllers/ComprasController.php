@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdicionGastos;
 use App\Models\Compras;
 use App\Models\DetCompras;
 use App\Models\Proveedores;
@@ -49,6 +50,7 @@ class ComprasController extends Controller
             $telasPorProveedor[$tela->idproveedor][] = $tela;
         }
 
+
         // Convertir a JSON para usar en JavaScript
         $telasPorProveedorJson = json_encode($telasPorProveedor);
 
@@ -84,7 +86,14 @@ class ComprasController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $compra = Compras::find($id);
+        $detcompras = DetCompras::where('idcompra', $id)->get();
+        $gastos = AdicionGastos::join('tipogastos', 'tipogastos.id', '=', 'adiciongastos.idgasto')
+        ->where('adiciongastos.idcompra', $id)        
+        ->select('tipogastos.*', 'adiciongastos.*')
+        ->get();
+        //dd($gastos);
+        return view('compras.show', compact('compra', 'detcompras', 'gastos'));
     }
 
     /**
