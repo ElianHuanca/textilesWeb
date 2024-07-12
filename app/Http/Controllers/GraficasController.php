@@ -10,6 +10,12 @@ use Carbon\Carbon;
 
 class GraficasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:graficas.metas')->only(['metas']);        
+    }
+
     public function metas()
     {
         $usuarios = User::where('estado',true)->where('metas', '>', 0)->get();

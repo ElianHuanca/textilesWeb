@@ -174,7 +174,7 @@ return [
             'url' => '#',
             'icon' => 'ti ti-box',            
             'active' => ['support1'],
-            'can' => 'almacenes.index',
+            'can' => 'telas.index',
             'submenu' => [
                 [
                     'text' => 'Gestionar Almacenes',
@@ -192,12 +192,13 @@ return [
                     'text' => 'Gestionar Traspasos',
                     'route' => 'traspasos.create',
                     'icon' => 'ti ti-box',
-                    
+                    'can' => 'traspasos.create',
                 ],
                 [
                     'text' => 'Recepcionar Compras',
                     'url' => 'recepciones',
                     'icon' => 'ti ti-box',
+                    'can' => 'recepciones.index',
                 ]
             ],
         ],        
@@ -254,26 +255,31 @@ return [
             'url' => '#',
             'icon' => 'ti ti-chart-bar',
             'active' => ['support4'],
+            'can' => 'graficas.metas', 
             'submenu' => [                       
                 [
                     'text' => 'Ventas Por Sucursales',
                     'url' => 'ventas-ganancias-sucursal',
                     'icon' => 'ti ti-chart-bar',
+                    'can' => 'reportes.ventas_ganancias_sucursal',
                 ],       
                 [
                     'text' => 'Ventas Por Telas',
                     'url' => 'ventas-ganancias-telas',
                     'icon' => 'ti ti-chart-bar',
+                    'can' => 'reportes.ventas_ganancias_telas',
                 ],                
                 [
                     'text' => 'Demanda De Telas',
                     'route' => 'reportes.formdemandas',
                     'icon' => 'ti ti-chart-bar',
+                    'can' => 'reportes.formdemandas',
                 ],
                 [
                     'text' => 'Metas Por Vendedor',
                     'route' => 'graficas.metas',
                     'icon' => 'ti ti-chart-bar',
+                    'can' => 'graficas.metas',
                 ],
             ],
         ],

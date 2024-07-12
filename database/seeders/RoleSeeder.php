@@ -72,7 +72,7 @@ class RoleSeeder extends Seeder
         Permission::create([
             'name' => 'telas.index',
             'description' => 'Ver lista de telas'
-        ])->syncRoles([$role1]);
+        ])->syncRoles([$role1,$role2]);
         Permission::create([
             'name' => 'telas.create',
             'description' => 'Crear telas'
@@ -157,6 +157,41 @@ class RoleSeeder extends Seeder
         Permission::create([
             'name' => 'gastos.create',
             'description' => 'Adicionar Gastos'
+        ])->syncRoles([$role1]);
+
+        Permission::create([
+            'name' => 'traspasos.create',
+            'description' => 'Registrar Traspasos'
+        ])->syncRoles([$role1,$role2]);
+
+        //recepciones
+        Permission::create([
+            'name' => 'recepciones.index',
+            'description' => 'Listar Recepciones'
+        ])->syncRoles([$role1,$role2]);
+        Permission::create([
+            'name' => 'recepciones.create',
+            'description' => 'Registrar Recepciones'
+        ])->syncRoles([$role1,$role2]);        
+
+        Permission::create([
+            'name' => 'graficas.metas',
+            'description' => 'Ver metas de vendedores'
+        ])->syncRoles([$role1,$role3]);
+
+        Permission::create([
+            'name' => 'reportes.ventas_ganancias_telas',
+            'description' => 'Ver grafica ventas ganancias por telas'
+        ])->syncRoles([$role1]);
+
+        Permission::create([
+            'name' => 'reportes.ventas_ganancias_sucursal',
+            'description' => 'Ver grafica ventas ganancias por sucursales'
+        ])->syncRoles([$role1]);
+
+        Permission::create([
+            'name' => 'reportes.formdemandas',
+            'description' => 'Ver formulario de demandas'
         ])->syncRoles([$role1]);
     }
 }

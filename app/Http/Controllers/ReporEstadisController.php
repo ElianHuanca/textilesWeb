@@ -10,6 +10,13 @@ class ReporEstadisController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:reportes.ventas_ganancias_sucursal')->only(['ventas_ganancias_sucursal']);        
+        $this->middleware('can:reportes.ventas_ganancias_telas')->only(['ventas_ganancias_telas']);        
+    }
     public function Ganancias_Sucursal()
     {
         $data = DB::table('ventas as v')

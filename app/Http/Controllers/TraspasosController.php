@@ -9,10 +9,16 @@ use App\Models\Sucursales;
 use App\Models\SucursalesTelas;
 use App\Models\Telas;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 
 class TraspasosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');        
+        $this->middleware('can:traspasos.create')->only(['create', 'store']);
+    }
+
     public function create(){
         $sucursales = Sucursales::where('estado',true)->get();
         $almacenes = Almacenes::where('estado',true)->get();

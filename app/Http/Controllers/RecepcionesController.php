@@ -18,6 +18,13 @@ use Illuminate\Support\Facades\Auth;
 
 class RecepcionesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:recepciones.index')->only(['index', 'show']);
+        $this->middleware('can:recepciones.create')->only(['create', 'store']);                
+    }
+
     public function index()
     {
         $comprasnr = Compras::leftJoin('recepciones', 'compras.id', '=', 'recepciones.idcompra')

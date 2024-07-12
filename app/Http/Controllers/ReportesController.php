@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sucursales;
-use App\Models\Telas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ReportesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:reportes.formdemandas')->only(['formdemandas', 'demandas']);                
+    }
+
     public function formdemandas()
     {
         $sucursales = Sucursales::where('estado', true)->orderby('id')->get();
@@ -17,7 +22,7 @@ class ReportesController extends Controller
     }
 
     public function demandas(Request $request)
-    {        
+    {
         $sucursales = Sucursales::where('estado', true)->get();
         $query = "
         SELECT 
@@ -48,9 +53,9 @@ ORDER BY
     telas_sucursales.idtela, 
     telas_sucursales.idsucursal;        
         ";
-        
-        $telas = DB::select($query, [$request->fechaini, $request->fechafin]);     
-        
+
+        $telas = DB::select($query, [$request->fechaini, $request->fechafin]);
+
         return view('reportes.demandas', compact('sucursales', 'telas', 'request'));
     }
 }
